@@ -103,3 +103,18 @@ export function ring(canvas, p, color = '#6ef2ff', label = '') {
   c.shadowBlur = 0;
   if (label) { c.fillStyle = '#fff'; c.font = '800 20px ' + getComputedStyle(document.body).fontFamily; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(label, S / 2, S / 2 + 1); }
 }
+
+/** Shown to the player right after a parent allows the camera. */
+export function privacyNotice() {
+  return new Promise((resolve) => modal((box, close) => {
+    const li = (icon, text) => h('div', { class: 'privacy-row' }, h('span', { class: 'privacy-ico' }, icon), h('span', {}, text));
+    box.classList.add('privacy-modal');
+    box.append(
+      h('div', { class: 'privacy-badge', html: '<svg viewBox="0 0 64 64" width="64" height="64"><rect x="12" y="28" width="40" height="28" rx="8" fill="#5fe3a1"/><path d="M20 28v-7a12 12 0 0 1 24 0v7" fill="none" stroke="#5fe3a1" stroke-width="6" stroke-linecap="round"/><circle cx="32" cy="41" r="5" fill="#0b3a26"/><rect x="30" y="42" width="4" height="8" rx="2" fill="#0b3a26"/></svg>' }),
+      h('h3', {}, t('privacyTitle')),
+      li('🌐🚫', t('privacyBody1')),
+      li('💻', t('privacyBody2')),
+      li('⏻', t('privacyBody3')),
+      h('div', { class: 'row' }, btn(t('privacyOk'), () => { close(); resolve(); }, 'green')));
+  }));
+}

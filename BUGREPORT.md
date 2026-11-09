@@ -16,7 +16,7 @@ template below.
 A one-line description of the problem.
 
 **Version**
-Sign It version (see **Credits**), e.g. `v0.1.0`.
+Sign It version (see **Credits**), e.g. `v0.1.1`.
 
 **System**
 - Operating system: (e.g. Windows 11, Ubuntu 24.04, Debian 12)

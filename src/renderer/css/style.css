@@ -228,3 +228,11 @@ button, input, select { font-family: inherit; }
 }
 .btn.pulse { animation: pulseGlow 1.3s ease-in-out infinite; }
 @keyframes pulseGlow { 50% { filter: brightness(1.25); box-shadow: 0 6px 0 color-mix(in srgb, var(--c) 55%, #000 45%), 0 0 28px color-mix(in srgb, var(--c) 70%, transparent); } }
+.privacy-modal { text-align: center; }
+.privacy-modal h3 { margin-top: 6px; }
+.privacy-badge { display: grid; place-items: center; margin: 0 auto 4px; width: 96px; height: 96px; border-radius: 50%; background: rgba(95, 227, 161, 0.14); box-shadow: 0 0 40px rgba(95, 227, 161, 0.35); animation: pop 0.5s cubic-bezier(.3, 1.6, .5, 1); }
+.privacy-row { display: flex; gap: 14px; align-items: center; text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 12px 14px; margin-top: 10px; font-size: 17px; line-height: 1.45; }
+.privacy-row:first-of-type { border: 1.5px solid rgba(95, 227, 161, 0.55); font-weight: 800; color: #c9ffe6; }
+.privacy-ico { font-size: 22px; min-width: 44px; text-align: center; }
+.privacy-modal .row { justify-content: center; }
+.panel-head .tag.private { background: rgba(95, 227, 161, 0.14); color: var(--green); }

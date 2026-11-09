@@ -79,6 +79,15 @@ app.whenReady().then(() => {
     }
   });
 
+  // OFFLINE GUARANTEE: the game never talks to the internet. Every request that is
+  // not for the game's own bundled files is blocked, so camera data cannot leave
+  // this computer. (Website/email links in Credits open in the system browser.)
+  session.defaultSession.webRequest.onBeforeRequest((details, cb) => {
+    const ok = /^(app|file|devtools|chrome-extension|data|blob):/i.test(details.url);
+    if (!ok) console.warn('[offline] blocked request:', details.url);
+    cb({ cancel: !ok });
+  });
+
   // Camera is only granted to our own page, and only for video (no microphone).
   session.defaultSession.setPermissionRequestHandler((wc, permission, cb, details) => {
     if (permission === 'media') {

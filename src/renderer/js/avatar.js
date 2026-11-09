@@ -173,7 +173,7 @@ export function buildTimeline(tokens, lang) {
         const prev = chars[i - 1];
         if (prev === ch) push({ d: 160, r: { at: [0.58, -0.48], s: ch } }); // small bounce for double letters
         push({ d: i === 0 ? 380 : 240, r: { at: [0.55, -0.55], s: ch }, letter: ch });
-        push({ d: 420, r: { at: [0.55, -0.55], s: ch }, letter: ch });
+        push({ d: 420, r: { at: [0.55, -0.55], s: ch }, letter: ch, sayIt: true }); // hold frame: announce once
       });
       mouths.push({ t0: start, t1: t, text: lang === 'ja' ? word : word.toLowerCase() });
     } else {
@@ -239,7 +239,7 @@ export class Avatar {
       lP: blendPts(handPts(this.lang, lA), handPts(this.lang, lB), u),
       brow: cur.brow, letter: cur.letter
     };
-    if (cur.letter && this.onLetter && this._lastLetterFrame !== i) { this._lastLetterFrame = i; this.onLetter(cur.letter); }
+    if (cur.sayIt && this.onLetter && this._lastLetterFrame !== i) { this._lastLetterFrame = i; this.onLetter(cur.letter); }
     // mouth
     let m = VIS.rest;
     for (const mo of tl.mouths) {
@@ -269,6 +269,7 @@ export class Avatar {
     const u = Math.min(H / 2.85, W / 2.7) * this._z;
     const ox = W / 2, oy = H * 0.66 + (this._z - 1) * u * 1.15;
     const P = (x, y) => [ox + x * u, oy + y * u];
+    if (this.timeline !== this._tl) { this._tl = this.timeline; this._lastLetterFrame = -1; }
     const st = this.state(now);
     const skin = SKIN[this.skin] || SKIN.light;
     const breathe = Math.sin(now / 900) * 0.008;

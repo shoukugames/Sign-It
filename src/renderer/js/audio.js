@@ -6,6 +6,7 @@
 //   If a recording is missing, the line is shown as a caption. A synthetic
 //   device voice is used only if a parent explicitly enables it in For Parents.
 import { store } from './storage.js';
+import { letterKey, wordKeys } from './voicekeys.js';
 
 let ctx = null, master = null, verb = null, dry = null;
 
@@ -127,7 +128,14 @@ export function voiceKey(kind, text) {
   return `${kind}_${slug}`;
 }
 
+const clipCache = new Map();
 async function tryFile(lang, key) {
+  if (clipCache.has(lang + key)) return clipCache.get(lang + key);
+  const a = await probeFile(lang, key);
+  if (a) clipCache.set(lang + key, a);
+  return a;
+}
+async function probeFile(lang, key) {
   await manifestReady;
   let exts = ['mp3', 'ogg', 'wav'];
   if (manifest) {
@@ -165,19 +173,41 @@ function bestDeviceVoice(lang) {
  * Speak a line. Returns a promise resolving to true if audio played,
  * false if only a caption was shown.
  */
-export async function say(key, text, opts = {}) {
-  stopVoice();
-  const lang = opts.lang || store.settings.lang;
-  captionCb(text, true);
-  const a = await tryFile(lang, key);
-  if (a) {
+let seq = 0; // bumps on stopVoice() to cancel a playing sequence
+
+function playClip(a, my) {
+  return new Promise((res) => {
+    if (my !== seq) return res(false);
     current = a;
+    a.currentTime = 0;
     a.volume = store.settings.voice;
-    return new Promise((res) => {
-      a.onended = () => { captionCb(text, false); res(true); };
-      a.onerror = () => res(false);
-      a.play().catch(() => res(false));
-    });
+    a.onended = () => res(true);
+    a.onerror = () => res(false);
+    a.play().catch(() => res(false));
+  });
+}
+
+/**
+ * Speak a line. `keys` is one recording key or a list played back-to-back
+ * (e.g. the words of a sentence). Human recordings are always preferred; the
+ * caption is always shown. Returns true if audio was heard.
+ */
+export async function say(keys, text, opts = {}) {
+  stopVoice();
+  const my = seq;
+  const lang = opts.lang || store.settings.lang;
+  const list = Array.isArray(keys) ? keys : [keys];
+  const caption = opts.caption || text;
+  captionCb(caption, true);
+  const clips = await Promise.all(list.map((k) => tryFile(lang, k)));
+  if (my !== seq) return false;
+  if (clips.length && clips.every(Boolean)) {
+    for (let i = 0; i < clips.length; i++) {
+      if (!(await playClip(clips[i], my))) break;
+      if (i < clips.length - 1) await new Promise((r) => setTimeout(r, 140));
+    }
+    if (my === seq) setTimeout(() => { if (my === seq) captionCb(caption, false); }, opts.captionHold || 900);
+    return true;
   }
   if (store.settings.deviceVoice && window.speechSynthesis) {
     const u = new SpeechSynthesisUtterance(text);
@@ -186,13 +216,30 @@ export async function say(key, text, opts = {}) {
     u.lang = lang === 'ja' ? 'ja-JP' : 'en-US';
     u.rate = 0.92; u.pitch = 1.05; u.volume = store.settings.voice;
     return new Promise((res) => {
-      u.onend = () => { captionCb(text, false); res(true); };
+      u.onend = () => { captionCb(caption, false); res(true); };
       u.onerror = () => res(false);
       speechSynthesis.speak(u);
     });
   }
-  setTimeout(() => captionCb(text, false), Math.max(1800, text.length * 90));
+  setTimeout(() => { if (my === seq) captionCb(caption, false); }, Math.max(1800, caption.length * 90));
   return false;
+}
+
+/** Speak a letter / kana name with a human voice. */
+export function sayLetter(letter, opts = {}) {
+  return say(letterKey(letter), letter, opts);
+}
+/** Speak a word or phrase with a human voice (one recording per word). */
+export function sayWords(text, opts = {}) {
+  const lang = opts.lang || store.settings.lang;
+  return say(wordKeys(text, lang), text, { ...opts, lang });
+}
+/** True if every word of `text` has a human recording (or the opted-in device voice). */
+export async function canSayWords(text, lang) {
+  lang = lang || store.settings.lang;
+  const ks = wordKeys(text, lang);
+  if (ks.length && (await Promise.all(ks.map((k) => tryFile(lang, k)))).every(Boolean)) return true;
+  return !!(store.settings.deviceVoice && window.speechSynthesis && bestDeviceVoice(lang));
 }
 
 /** True if a spoken line can actually be heard (recording or opted-in device voice). */
@@ -202,6 +249,7 @@ export async function canSpeak(key, lang) {
 }
 
 export function stopVoice() {
+  seq++;
   if (current) { try { current.pause(); } catch (_) { /* ignore */ } current = null; }
   if (window.speechSynthesis) speechSynthesis.cancel();
 }

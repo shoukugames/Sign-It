@@ -22,7 +22,7 @@ export class CameraPanel {
     this.offMsg = h('div', { class: 'cam-off-msg hidden' });
     this.burst = h('div', { class: 'burst hidden' });
     this.body = h('div', { class: 'panel-body' }, this.canvas, this.fb, this.ringC, this.meter, this.offMsg, this.burst);
-    this.tag = h('span', { class: 'tag' }, '✋ ' + t('signingSpace'));
+    this.tag = h('span', { class: 'tag private' }, '🔒 ' + t('privacyTag'));
     this.el = h('div', { class: 'panel' }, h('div', { class: 'panel-head' }, '📷 ', title || t('camera'), this.tag), this.body);
     this.view = new camera.HandView(this.canvas);
     this.job = null;

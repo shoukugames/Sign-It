@@ -7,7 +7,7 @@ import { h, btn, toast, starsEl } from '../ui.js';
 import { t } from '../i18n.js';
 import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say, canSpeak } from '../audio.js';
+import { sfx, say, sayLetter, sayWords, canSayWords } from '../audio.js';
 import { level } from '../curriculum.js';
 import { getShape } from '../signs.js';
 import { synthesize, drawHand, SKIN, VIEW34 } from '../handmodel.js';
@@ -108,8 +108,8 @@ export function levelScreen({ n }) {
   let alive = true, practiceNext = null, currentItem = null;
   async function speakCurrent() {
     if (!currentItem) return;
-    const key = `word_${currentItem.text.replace(/\s+/g, '_')}`;
-    if (await canSpeak(key, lang)) { say(key, currentItem.text, { lang }); return; }
+    // spoken by a human voice; the caption is hidden in listening levels so the player must listen
+    if (await canSayWords(currentItem.text, lang)) { sayWords(currentItem.text, { lang, caption: '👂 …' }); return; }
     // No human recording installed: flash the word briefly instead of using a robotic voice.
     toast('🔊 ' + t('noVoiceYet'), 2600);
     meaning.textContent = '👀 ' + currentItem.text;
@@ -140,10 +140,10 @@ export function levelScreen({ n }) {
       currentItem = item;
       [...progress.children].forEach((d, k) => (d.className = k < ii ? 'done' : k === ii ? 'on' : ''));
       meaning.textContent = '';
-      if (lv.type === 1) { prompt.textContent = t('levelDesc1'); big.textContent = item.text; row.innerHTML = ''; }
+      if (lv.type === 1) { prompt.textContent = t('levelDesc1'); big.textContent = item.text; row.innerHTML = ''; sayLetter(item.text, { lang }); }
       else if (lv.type === 3) { prompt.textContent = '🔊 ' + t('levelDesc3'); big.textContent = '🔊'; speakCurrent(); }
       else { prompt.textContent = t('levelDesc' + lv.type); big.textContent = ''; }
-      if (lv.type === 2 || lv.type === 4) say(`word_${item.text.replace(/\s+/g, '_')}`, item.text, { lang });
+      if (lv.type === 2 || lv.type === 4) sayWords(item.text, { lang });
 
       const results = item.words.map(() => []);
       const wordScores = [];
@@ -166,7 +166,7 @@ export function levelScreen({ n }) {
             r = await cam.match(lang, key, { timeLimit: D.time, requireRelease: same, releaseFrom: same ? letterRes[li - 1]?.center : null });
             if (r.cancelled || !alive) return;
             store.recordSign(key, r.stars > 0);
-            if (r.stars) { cam.showBurst(r.stars, lv.type === 1 ? key : null); } else { sfx.wrong(); cam.fb.innerHTML = `<div>⏱ ${t('timeUp')}</div>`; }
+            if (r.stars) { cam.showBurst(r.stars, lv.type === 1 ? key : null); if (key !== 'ILY') sayLetter(key, { lang, captionHold: 300 }); } else { sfx.wrong(); cam.fb.innerHTML = `<div>⏱ ${t('timeUp')}</div>`; }
             if (!anchor && r.center) anchor = r.center;
             r.tech = r.frames?.length ? techniqueScore(r.frames, r.startT, prevEnd, anchor) : 0;
             prevEnd = r.endT;

@@ -1,0 +1,1767 @@
+{
+ "generated": "2026-11-09",
+ "source": "Wikimedia Commons (incl. Lingua Libre)",
+ "modifications": "Trimmed silence, converted to mono Ogg Vorbis, loudness-normalised.",
+ "files": [
+  {
+   "lang": "en",
+   "key": "L_A",
+   "text": "A",
+   "file": "En-us-A.ogg",
+   "author": "Unknown",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-A.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_B",
+   "text": "B",
+   "file": "En-us-b.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-b.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_C",
+   "text": "C",
+   "file": "En-us-c.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-c.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_D",
+   "text": "D",
+   "file": "En-us-d.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-d.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_E",
+   "text": "E",
+   "file": "En-us-e.ogg",
+   "author": "Logictheo",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-e.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_F",
+   "text": "F",
+   "file": "En-us-f.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-f.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_G",
+   "text": "G",
+   "file": "En-us-g.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-g.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_H",
+   "text": "H",
+   "file": "En-us-h.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-h.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_I",
+   "text": "I",
+   "file": "En-us-I.ogg",
+   "author": "Unknown",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-I.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_J",
+   "text": "J",
+   "file": "En-us-j.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-j.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_K",
+   "text": "K",
+   "file": "En-us-k.ogg",
+   "author": "Neskaya",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-k.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_L",
+   "text": "L",
+   "file": "En-us-L.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-L.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_M",
+   "text": "M",
+   "file": "En-us-m.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-m.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_N",
+   "text": "N",
+   "file": "En-us-n.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-n.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_O",
+   "text": "O",
+   "file": "En-us-O.ogg",
+   "author": "DroEsperanto",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-O.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_P",
+   "text": "P",
+   "file": "En-us-p.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-p.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_Q",
+   "text": "Q",
+   "file": "En-us-q.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-q.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_R",
+   "text": "R",
+   "file": "En-us-r.ogg",
+   "author": "Logictheo",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-r.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_S",
+   "text": "S",
+   "file": "En-us-s.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-s.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_T",
+   "text": "T",
+   "file": "En-us-t.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-t.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_U",
+   "text": "U",
+   "file": "En-us-u.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-u.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_V",
+   "text": "V",
+   "file": "En-us-v.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-v.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_W",
+   "text": "W",
+   "file": "En-us-w.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-w.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_X",
+   "text": "X",
+   "file": "En-us-X.ogg",
+   "author": "Sylvanmoon",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-X.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_Y",
+   "text": "Y",
+   "file": "En-us-y.ogg",
+   "author": "Twocs",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-y.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "L_Z",
+   "text": "Z",
+   "file": "En-us-z.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-z.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_hello",
+   "text": "hello",
+   "file": "En-us-hello.ogg",
+   "author": "Dvortygirl",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-hello.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_you",
+   "text": "you",
+   "file": "En-us-you.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-you.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_cab",
+   "text": "cab",
+   "file": "En-us-cab.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-cab.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_my",
+   "text": "my",
+   "file": "En-us-my.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-my.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_name",
+   "text": "name",
+   "file": "En-us-name.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-name.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_bed",
+   "text": "bed",
+   "file": "En-us-bed.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-bed.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_deb",
+   "text": "deb",
+   "file": "LL-Q1860 (eng)-Wodencafe-deb.wav",
+   "author": "Speaker: Wodencafe Recorder: Wodencafe",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q1860_(eng)-Wodencafe-deb.wav"
+  },
+  {
+   "lang": "en",
+   "key": "W_please",
+   "text": "please",
+   "file": "En-us-please.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-please.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_thank",
+   "text": "thank",
+   "file": "En-us-thank.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-thank.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_egg",
+   "text": "egg",
+   "file": "En-us-egg.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-egg.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_yes",
+   "text": "yes",
+   "file": "En-us-yes.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-yes.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_no",
+   "text": "no",
+   "file": "En-us-no.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-no.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_hi",
+   "text": "hi",
+   "file": "En-us-hi.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-hi.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_mom",
+   "text": "mom",
+   "file": "En-us-mom.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-mom.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_dad",
+   "text": "dad",
+   "file": "En-us-dad.ogg",
+   "author": "No machine-readable author provided. Dvortygirl assumed (based on copyright claims).",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-dad.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_leg",
+   "text": "leg",
+   "file": "En-us-leg.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-leg.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_me",
+   "text": "me",
+   "file": "En-us-me.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-me.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_love",
+   "text": "love",
+   "file": "En-us-love.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-love.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_friend",
+   "text": "friend",
+   "file": "En-us-friend.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-friend.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_man",
+   "text": "man",
+   "file": "En-us-man.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-man.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_eat",
+   "text": "eat",
+   "file": "En-us-eat.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-eat.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_drink",
+   "text": "drink",
+   "file": "En-us-drink.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-drink.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_pop",
+   "text": "pop",
+   "file": "En-us-pop.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-pop.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_more",
+   "text": "more",
+   "file": "En-us-more.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-more.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_good",
+   "text": "good",
+   "file": "En-us-good.ogg",
+   "author": "Unknown",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-good.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_red",
+   "text": "red",
+   "file": "En-us-red.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-red.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_happy",
+   "text": "happy",
+   "file": "En-us-happy.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-happy.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_sorry",
+   "text": "sorry",
+   "file": "En-us-sorry.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-sorry.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_cat",
+   "text": "cat",
+   "file": "En-us-cat.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-cat.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_sun",
+   "text": "sun",
+   "file": "En-us-Sun.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-Sun.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_water",
+   "text": "water",
+   "file": "En-us-water.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-water.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_play",
+   "text": "play",
+   "file": "En-us-play.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-play.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_box",
+   "text": "box",
+   "file": "En-us-box.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-box.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_what",
+   "text": "what",
+   "file": "En-us-what.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-what.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_your",
+   "text": "your",
+   "file": "En-us-your.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-your.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_like",
+   "text": "like",
+   "file": "En-us-like.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-like.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_help",
+   "text": "help",
+   "file": "En-us-help.ogg",
+   "author": "No machine-readable author provided. Dvortygirl assumed (based on copyright claims).",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-help.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_jam",
+   "text": "jam",
+   "file": "En-us-jam.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-jam.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_zoo",
+   "text": "zoo",
+   "file": "En-us-zoo.ogg",
+   "author": "No machine-readable author provided. Neoglitch assumed (based on copyright claims).",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-zoo.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_see",
+   "text": "see",
+   "file": "En-us-see.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-see.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_book",
+   "text": "book",
+   "file": "En-us-book.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-book.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_quiz",
+   "text": "quiz",
+   "file": "En-us-quiz.ogg",
+   "author": "Sylvanmoon",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-quiz.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_school",
+   "text": "school",
+   "file": "LL-Q1860 (eng)-Wodencafe-school.wav",
+   "author": "Speaker: Wodencafe Recorder: Wodencafe",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q1860_(eng)-Wodencafe-school.wav"
+  },
+  {
+   "lang": "en",
+   "key": "W_fine",
+   "text": "fine",
+   "file": "En-us-fine.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-fine.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_home",
+   "text": "home",
+   "file": "En-us-home.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-home.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_where",
+   "text": "where",
+   "file": "En-us-where.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-where.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_want",
+   "text": "want",
+   "file": "En-us-want.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-want.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_van",
+   "text": "van",
+   "file": "En-us-van.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-van.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_family",
+   "text": "family",
+   "file": "En-us-family.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-family.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_pig",
+   "text": "pig",
+   "file": "En-us-pig.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-pig.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_baby",
+   "text": "baby",
+   "file": "En-us-baby.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-baby.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_fox",
+   "text": "fox",
+   "file": "En-us-fox.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-fox.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_i",
+   "text": "i",
+   "file": "En-us-i.ogg",
+   "author": "Geoff Sebastian (Geoff Sebastian)",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-i.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_bye",
+   "text": "bye",
+   "file": "En-us-bye.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-bye.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_sam",
+   "text": "sam",
+   "file": "En-us-Sam.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-Sam.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_fish",
+   "text": "fish",
+   "file": "En-us-fish.ogg",
+   "author": "Unknown",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-fish.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_dog",
+   "text": "dog",
+   "file": "En-us-dog.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-dog.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_cake",
+   "text": "cake",
+   "file": "En-us-cake.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-cake.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_milk",
+   "text": "milk",
+   "file": "En-us-milk.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-milk.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_blue",
+   "text": "blue",
+   "file": "En-us-blue.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-blue.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_tree",
+   "text": "tree",
+   "file": "En-us-tree.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-tree.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_bird",
+   "text": "bird",
+   "file": "En-us-bird.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-bird.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_frog",
+   "text": "frog",
+   "file": "En-us-frog.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-frog.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_jump",
+   "text": "jump",
+   "file": "En-us-jump.ogg",
+   "author": "TreeMama",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-jump.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_smile",
+   "text": "smile",
+   "file": "En-us-smile.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-smile.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_am",
+   "text": "am",
+   "file": "En-us-am.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-am.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_ok",
+   "text": "ok",
+   "file": "LL-Q1860 (eng)-Dumbledore (Dumbledore12)-ok.wav",
+   "author": "Speaker: Dumbledore Recorder: Dumbledore12",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q1860_(eng)-Dumbledore_(Dumbledore12)-ok.wav"
+  },
+  {
+   "lang": "en",
+   "key": "W_job",
+   "text": "job",
+   "file": "En-us-job.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-job.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_we",
+   "text": "we",
+   "file": "En-us-we.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-we.ogg"
+  },
+  {
+   "lang": "en",
+   "key": "W_can",
+   "text": "can",
+   "file": "En-us-can.ogg",
+   "author": "Dvortygirl",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://commons.wikimedia.org/wiki/File:En-us-can.ogg"
+  },
+  {
+   "lang": "ja",
+   "key": "L_あ",
+   "text": "あ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_い",
+   "text": "い",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-い.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_う",
+   "text": "う",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-う.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%86.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_え",
+   "text": "え",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-え.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%88.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_お",
+   "text": "お",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-お.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8A.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_か",
+   "text": "か",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-か.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8B.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_き",
+   "text": "き",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-き.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8D.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_く",
+   "text": "く",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-く.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8F.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_け",
+   "text": "け",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-け.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%91.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_さ",
+   "text": "さ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-さ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%95.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_し",
+   "text": "し",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-し.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%97.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_た",
+   "text": "た",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-た.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%9F.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_に",
+   "text": "に",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-に.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%AB.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_ま",
+   "text": "ま",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-ま.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%BE.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_み",
+   "text": "み",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-み.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%BF.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_む",
+   "text": "む",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-む.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%80.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_め",
+   "text": "め",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-め.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%81.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_や",
+   "text": "や",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-や.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_よ",
+   "text": "よ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-よ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%88.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_ら",
+   "text": "ら",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-ら.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%89.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_れ",
+   "text": "れ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-れ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%8C.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "L_わ",
+   "text": "わ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-わ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%8F.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_こんにちは",
+   "text": "こんにちは",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-こんにちは.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あなた",
+   "text": "あなた",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あなた.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%AA%E3%81%9F.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あい",
+   "text": "あい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_わたし",
+   "text": "わたし",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-わたし.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%8F%E3%81%9F%E3%81%97.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_なまえ",
+   "text": "なまえ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-なまえ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%AA%E3%81%BE%E3%81%88.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_いえ",
+   "text": "いえ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-いえ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%84%E3%81%88.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あお",
+   "text": "あお",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あお.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%8A.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_ありがとう",
+   "text": "ありがとう",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-ありがとう.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_かお",
+   "text": "かお",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-かお.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8B%E3%81%8A.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_えき",
+   "text": "えき",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-えき.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%88%E3%81%8D.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_かき",
+   "text": "かき",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-柿.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E6%9F%BF.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_いいえ",
+   "text": "いいえ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-いいえ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%84%E3%81%84%E3%81%88.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_きく",
+   "text": "きく",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-きく.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8D%E3%81%8F.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_いけ",
+   "text": "いけ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-いけ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%84%E3%81%91.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_おかあさん",
+   "text": "おかあさん",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-おかあさん.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8A%E3%81%8B%E3%81%82%E3%81%95%E3%82%93.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_おとうさん",
+   "text": "おとうさん",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-おとうさん.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8A%E3%81%A8%E3%81%86%E3%81%95%E3%82%93.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_かさ",
+   "text": "かさ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-かさ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8B%E3%81%95.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_うし",
+   "text": "うし",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-うし.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%86%E3%81%97.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_ともだち",
+   "text": "ともだち",
+   "file": "LL-Q5287 (jpn)-葵心-友達.wav",
+   "author": "Speaker: 葵心 Recorder: 葵心",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-%E8%91%B5%E5%BF%83-%E5%8F%8B%E9%81%94.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あした",
+   "text": "あした",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あした.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%97%E3%81%9F.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_たべる",
+   "text": "たべる",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-たべる.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%9F%E3%81%B9%E3%82%8B.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_のむ",
+   "text": "のむ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-のむ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%AE%E3%82%80.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_かに",
+   "text": "かに",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-蟹.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E8%9F%B9.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_おいしい",
+   "text": "おいしい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-おいしい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8A%E3%81%84%E3%81%97%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_くま",
+   "text": "くま",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-くま.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8F%E3%81%BE.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_まめ",
+   "text": "まめ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-豆.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E8%B1%86.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あそぶ",
+   "text": "あそぶ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あそぶ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%9D%E3%81%B6.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_うみ",
+   "text": "うみ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-うみ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%86%E3%81%BF.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_だいじょうぶ",
+   "text": "だいじょうぶ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-大丈夫.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E5%A4%A7%E4%B8%88%E5%A4%AB.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_むし",
+   "text": "むし",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-虫.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E8%99%AB.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あめ",
+   "text": "あめ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あめ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%82%81.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_やま",
+   "text": "やま",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-やま.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%84%E3%81%BE.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_やさい",
+   "text": "やさい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-野菜.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E9%87%8E%E8%8F%9C.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_おはよう",
+   "text": "おはよう",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-おはよう.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8A%E3%81%AF%E3%82%88%E3%81%86.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_よい",
+   "text": "よい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-よい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%88%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_さくら",
+   "text": "さくら",
+   "file": "LL-Q5287 (jpn)-Higa4-さくら.wav",
+   "author": "Speaker: Higa4 Recorder: Higa4",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Higa4-%E3%81%95%E3%81%8F%E3%82%89.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_れきし",
+   "text": "れきし",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-歴史.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E6%AD%B4%E5%8F%B2.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_きれい",
+   "text": "きれい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-きれい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8D%E3%82%8C%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_かわ",
+   "text": "かわ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-かわ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8B%E3%82%8F.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_なに",
+   "text": "なに",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-何.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E4%BD%95.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_おかし",
+   "text": "おかし",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-おかし.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8A%E3%81%8B%E3%81%97.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_にく",
+   "text": "にく",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-肉.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E8%82%89.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_かめ",
+   "text": "かめ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-亀.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E4%BA%80.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_いか",
+   "text": "いか",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-いか.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%84%E3%81%8B.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あさ",
+   "text": "あさ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あさ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%95.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あき",
+   "text": "あき",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あき.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%8D.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_たけ",
+   "text": "たけ",
+   "file": "LL-Q5287 (jpn)-CKali-竹.wav",
+   "author": "Speaker: CKali Recorder: CKali",
+   "license": "CC0",
+   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-CKali-%E7%AB%B9.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_しか",
+   "text": "しか",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-しか.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%97%E3%81%8B.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_かみ",
+   "text": "かみ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-かみ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8B%E3%81%BF.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_くさ",
+   "text": "くさ",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-くさ.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8F%E3%81%95.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あたま",
+   "text": "あたま",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あたま.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%9F%E3%81%BE.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あおい",
+   "text": "あおい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あおい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%8A%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_たかい",
+   "text": "たかい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-高い.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E9%AB%98%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あかい",
+   "text": "あかい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あかい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%8B%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あまい",
+   "text": "あまい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あまい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%BE%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_あたらしい",
+   "text": "あたらしい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-あたらしい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%82%E3%81%9F%E3%82%89%E3%81%97%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_わかい",
+   "text": "わかい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-わかい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%82%8F%E3%81%8B%E3%81%84.wav"
+  },
+  {
+   "lang": "ja",
+   "key": "W_おおきい",
+   "text": "おおきい",
+   "file": "LL-Q5287 (jpn)-Fukujinzuke-おおきい.wav",
+   "author": "Speaker: Fukujinzuke Recorder: Fukujinzuke",
+   "license": "CC BY 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LL-Q5287_(jpn)-Fukujinzuke-%E3%81%8A%E3%81%8A%E3%81%8D%E3%81%84.wav"
+  }
+ ]
+}

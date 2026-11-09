@@ -35,7 +35,7 @@ const JSL_LESSONS = [
   { title: ['Thank you', 'ありがとう'], letters: ['か', 'き'], words: [W('ありがとう', 'thank you', 'ありがとう'), W('#かお', 'face', 'かお'), W('#えき', 'station', 'えき')], sentence: SEN(['#かき', 'ありがとう'], 'A persimmon? Thank you!', 'かき、ありがとう！') },
   { title: ['No, thanks', 'いいえ'], letters: ['く', 'け'], words: [W('いいえ', 'no', 'いいえ'), W('#きく', 'chrysanthemum', 'きく'), W('#いけ', 'pond', 'いけ')], sentence: SEN(['いいえ', 'ありがとう'], 'No, thank you.', 'いいえ、ありがとう。') },
   { title: ['Family', 'かぞく'], letters: ['さ', 'し'], words: [W('おかあさん', 'mother', 'おかあさん'), W('おとうさん', 'father', 'おとうさん'), W('#かさ', 'umbrella', 'かさ'), W('#うし', 'cow', 'うし')], sentence: SEN(['こんにちは', 'おかあさん'], 'Hello, Mom!', 'こんにちは、おかあさん！') },
-  { title: ['Friends', 'ともだち'], letters: ['た'], words: [W('すき', 'like', 'すき'), W('ともだち', 'friend', 'ともだち'), W('#たき', 'waterfall', 'たき')], sentence: SEN(['わたし', 'ともだち', 'すき'], 'I like my friend.', 'わたしはともだちがすき。') },
+  { title: ['Friends', 'ともだち'], letters: ['た'], words: [W('すき', 'like', 'すき'), W('ともだち', 'friend', 'ともだち'), W('#あした', 'tomorrow', 'あした')], sentence: SEN(['わたし', 'ともだち', 'すき'], 'I like my friend.', 'わたしはともだちがすき。') },
   { title: ['Eating', 'たべる'], letters: ['に'], words: [W('たべる', 'eat', 'たべる'), W('のむ', 'drink', 'のむ'), W('#かに', 'crab', 'かに')], sentence: SEN(['わたし', '#かに', 'たべる'], 'I eat crab.', 'わたしはかにをたべる。') },
   { title: ['Delicious', 'おいしい'], letters: ['ま'], words: [W('おいしい', 'delicious', 'おいしい'), W('#くま', 'bear', 'くま'), W('#まめ', 'beans', 'まめ')], sentence: SEN(['#まめ', 'おいしい'], 'The beans are delicious.', 'まめはおいしい。') },
   { title: ['Playing', 'あそぶ'], letters: ['み'], words: [W('あそぶ', 'play', 'あそぶ'), W('#うみ', 'sea', 'うみ')], sentence: SEN(['#うみ', 'あそぶ'], 'Let\'s play at the sea.', 'うみであそぶ。') },
@@ -43,10 +43,10 @@ const JSL_LESSONS = [
   { title: ['Sorry', 'ごめんなさい'], letters: ['や'], words: [W('ごめんなさい', 'I\'m sorry', 'ごめんなさい'), W('#やま', 'mountain', 'やま'), W('#やさい', 'vegetables', 'やさい')], sentence: SEN(['#やさい', 'おいしい'], 'Vegetables are delicious.', 'やさいはおいしい。') },
   { title: ['Good morning', 'おはよう'], letters: ['よ'], words: [W('おはよう', 'good morning', 'おはよう'), W('#よい', 'good', 'よい')], sentence: SEN(['おはよう', 'おかあさん'], 'Good morning, Mom!', 'おはよう、おかあさん！') },
   { title: ['Nice to meet you', 'よろしく'], letters: ['ら'], words: [W('よろしく', 'nice to meet you', 'よろしく'), W('#さくら', 'cherry blossom', 'さくら')], sentence: SEN(['わたし', '#さくら', 'すき'], 'I like cherry blossoms.', 'わたしはさくらがすき。') },
-  { title: ['History', 'れきし'], letters: ['れ'], words: [W('#れきし', 'history', 'れきし'), W('#かれい', 'flounder (fish)', 'かれい')], sentence: SEN(['わたし', '#れきし', 'すき'], 'I like history.', 'わたしはれきしがすき。') },
+  { title: ['History', 'れきし'], letters: ['れ'], words: [W('#れきし', 'history', 'れきし'), W('#きれい', 'pretty', 'きれい')], sentence: SEN(['わたし', '#れきし', 'すき'], 'I like history.', 'わたしはれきしがすき。') },
   { title: ['River', 'かわ'], letters: ['わ'], words: [W('#わたし', 'I (spelled)', 'わたし（指文字）'), W('#かわ', 'river', 'かわ')], sentence: SEN(['#かわ', 'あそぶ'], 'Let\'s play at the river.', 'かわであそぶ。') },
   { title: ['Vowels review', '母音のふくしゅう'], letters: ['あ', 'い', 'う', 'え', 'お'], words: [W('なに', 'what', 'なに')], sentence: SEN(['あなた', 'なまえ', 'なに'], 'What is your name?', 'あなたのなまえはなに？') },
-  { title: ['Fist shapes', 'グーの形'], letters: ['さ', 'た', 'あ', 'え'], words: [W('#さしみ', 'sashimi', 'さしみ')], sentence: SEN(['#さしみ', 'おいしい'], 'Sashimi is delicious.', 'さしみはおいしい。') },
+  { title: ['Fist shapes', 'グーの形'], letters: ['さ', 'た', 'あ', 'え'], words: [W('#おかし', 'sweets', 'おかし')], sentence: SEN(['#おかし', 'おいしい'], 'Sweets are delicious.', 'おかしはおいしい。') },
   { title: ['Number shapes', '数字の形'], letters: ['に', 'み', 'よ', 'む', 'し', 'く'], words: [W('#にく', 'meat', 'にく')], sentence: SEN(['#にく', 'たべる'], 'Eat meat.', 'にくをたべる。') },
   { title: ['Look-alikes', 'にている形'], letters: ['か', 'ら', 'う', 'き', 'め'], words: [W('よろしく', 'nice to meet you', 'よろしく')], sentence: SEN(['わたし', 'なまえ', '#あい', 'よろしく'], 'My name is Ai. Nice to meet you.', 'わたしのなまえはあいです。よろしく。') },
   { title: ['Putting it together', 'まとめ'], letters: ['け', 'れ', 'わ', 'や', 'ま'], words: [W('こんにちは', 'hello', 'こんにちは')], sentence: SEN(['こんにちは', 'わたし', 'なまえ', '#さくら'], 'Hello, my name is Sakura.', 'こんにちは、わたしのなまえはさくらです。') }
@@ -65,7 +65,7 @@ const ASL_LEVELS = [
 const JSL_LEVELS = [
   ['あ', 'い', 'う', 'え', 'お'], ['か', 'き', 'く', 'け', 'さ'], ['し', 'に', 'み', 'よ', 'む'], ['た', 'ま', 'め', 'や', 'わ'], ['ら', 'れ', 'か', 'け', 'き'],
   ['あい', 'いえ', 'かお'], ['かさ', 'うし', 'えき'], ['くま', 'まめ', 'うみ'], ['やま', 'かめ', 'あめ'], ['さくら', 'わたし', 'やさい'],
-  ['いか', 'あさ', 'あき'], ['かに', 'にく', 'むし'], ['たけ', 'たき', 'しか'], ['かみ', 'くさ', 'かわ'], ['おかし', 'さしみ', 'あたま'],
+  ['いか', 'あさ', 'あき'], ['かに', 'にく', 'むし'], ['たけ', 'あした', 'しか'], ['かみ', 'くさ', 'かわ'], ['おかし', 'いけ', 'あたま'],
   ['あおい うみ', 'たかい やま'], ['あかい かさ', 'あまい おかし'], ['あたらしい いえ', 'わかい しか'], ['おおきい くま', 'さくら きれい'], ['あかい かに', 'わたし さくら']
 ];
 const MEANINGS = {
@@ -73,8 +73,8 @@ const MEANINGS = {
   HAPPY: 'うれしい', WATER: 'みず', ZOO: 'どうぶつえん', RED: 'あか', DOG: 'いぬ', YES: 'はい', CAKE: 'ケーキ', MILK: 'ぎゅうにゅう', BOOK: 'ほん', BLUE: 'あお', TREE: 'き', BIRD: 'とり',
   FROG: 'かえる', JUMP: 'ジャンプ', QUIZ: 'クイズ', SMILE: 'えがお', FRIEND: 'ともだち', SCHOOL: 'がっこう',
   'あい': 'love', 'いえ': 'house', 'かお': 'face', 'かさ': 'umbrella', 'うし': 'cow', 'えき': 'station', 'くま': 'bear', 'まめ': 'beans', 'うみ': 'sea', 'やま': 'mountain', 'かめ': 'turtle', 'あめ': 'rain',
-  'さくら': 'cherry blossom', 'わたし': 'I / me', 'やさい': 'vegetables', 'いか': 'squid', 'あさ': 'morning', 'あき': 'autumn', 'かに': 'crab', 'にく': 'meat', 'むし': 'bug', 'たけ': 'bamboo', 'たき': 'waterfall',
-  'しか': 'deer', 'かみ': 'paper', 'くさ': 'grass', 'かわ': 'river', 'おかし': 'sweets', 'さしみ': 'sashimi', 'あたま': 'head',
+  'さくら': 'cherry blossom', 'わたし': 'I / me', 'やさい': 'vegetables', 'いか': 'squid', 'あさ': 'morning', 'あき': 'autumn', 'かに': 'crab', 'にく': 'meat', 'むし': 'bug', 'たけ': 'bamboo', 'あした': 'tomorrow', 'いけ': 'pond',
+  'しか': 'deer', 'かみ': 'paper', 'くさ': 'grass', 'かわ': 'river', 'おかし': 'sweets', 'あたま': 'head',
   'HI MOM': 'ママ、やあ', 'I LOVE YOU': 'あいしてる', 'I AM OK': 'だいじょうぶ', 'SEE YOU': 'またね', 'MY DOG': 'わたしのいぬ', 'GOOD JOB': 'よくできました', 'I LIKE CAKE': 'ケーキがすき', 'HELLO FRIEND': 'こんにちは、ともだち', 'THANK YOU': 'ありがとう', 'WE CAN PLAY': 'いっしょにあそべる',
   'あおい うみ': 'blue sea', 'たかい やま': 'tall mountain', 'あかい かさ': 'red umbrella', 'あまい おかし': 'sweet candy', 'あたらしい いえ': 'new house', 'わかい しか': 'young deer', 'おおきい くま': 'big bear', 'さくら きれい': 'the cherry blossoms are pretty', 'あかい かに': 'red crab', 'わたし さくら': 'I am Sakura'
 };

@@ -1,7 +1,7 @@
 {
   "name": "sign-it",
   "productName": "Sign It",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Sign It - learn American Sign Language (ASL) and Japanese Sign Language (JSL) with camera hand tracking. Recommended for all ages.",
   "main": "src/main/main.js",
   "homepage": "https://shoukugames.org/",
@@ -23,7 +23,8 @@
     "prebuild": "node tools/vendor.js && node tools/voice-manifest.js",
     "dist:linux": "npm run prebuild && electron-builder --linux deb",
     "dist:win": "npm run prebuild && electron-builder --win nsis portable",
-    "dist": "npm run prebuild && electron-builder --linux deb --win nsis portable"
+    "dist": "npm run prebuild && electron-builder --linux deb --win nsis portable",
+    "voice:fetch": "node tools/fetch-voices.mjs && node tools/voice-manifest.js"
   },
   "devDependencies": {
     "electron": "^33.2.0",

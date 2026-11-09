@@ -3,7 +3,7 @@ import { h, btn } from '../ui.js';
 import { t } from '../i18n.js';
 import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say } from '../audio.js';
+import { sfx, say, sayLetter } from '../audio.js';
 import { lessons, QUIZZES, PASS_PCT } from '../curriculum.js';
 import { Avatar, LEXICON } from '../avatar.js';
 import { getShape } from '../signs.js';
@@ -110,7 +110,7 @@ export function quizScreen({ id }) {
       qTitle.textContent = t('qSignThis', { x: q.answer });
       stage.append(h('div', { style: { display: 'grid', placeItems: 'center', flex: 1 } }, h('div', { class: 'target-big' }, q.answer)));
       choices.append(btn(t('skip'), () => answer(false, q.answer), 'ghost small'));
-      say(`quiz_sign_${q.answer}`, q.answer);
+      sayLetter(q.answer);
       const r = await cam.match(lang, q.answer, { timeLimit: 20 });
       if (r.cancelled) return;
       if (r.stars) cam.showBurst(r.stars, q.answer);

@@ -2,7 +2,7 @@
 import * as camera from './camera.js';
 import { store } from './storage.js';
 import { sfx, stopVoice } from './audio.js';
-import { parentGate, toast } from './ui.js';
+import { parentGate, privacyNotice } from './ui.js';
 import { t } from './i18n.js';
 
 const screens = {};
@@ -43,7 +43,7 @@ export async function setCameraEnabled(on) {
   consent = true;
   store.set('camera', true);
   sfx.cameraOn();
-  toast('📷 ' + t('cameraHint'), 3200);
+  await privacyNotice(); // remind the player: offline and 100% private
   return true;
 }
 

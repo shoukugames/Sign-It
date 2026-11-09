@@ -3,7 +3,7 @@ import { h, btn, toast } from '../ui.js';
 import { t } from '../i18n.js';
 import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say } from '../audio.js';
+import { sfx, say, sayLetter, sayWords } from '../audio.js';
 import { lessons, PASS_PCT } from '../curriculum.js';
 import { Avatar, LEXICON } from '../avatar.js';
 import { getShape } from '../signs.js';
@@ -127,7 +127,7 @@ export function lessonScreen({ n }) {
   function show(i, replay = false) {
     if (i < 0 || i >= steps.length) return;
     idx = i;
-    practiceToken++; cam.cancel(); cam.freeTarget = null; nextB.classList.remove('pulse');
+    practiceToken++; cam.cancel(); cam.freeTarget = null; avatar.onLetter = null; nextB.classList.remove('pulse');
     [...stepsBar.children].forEach((d, k) => (d.className = k < i ? 'done' : k === i ? 'on' : ''));
     prevB.disabled = i === 0;
     const st = steps[i];
@@ -139,7 +139,8 @@ export function lessonScreen({ n }) {
       handCanvas.classList.remove('hidden'); avatarCanvas.classList.add('hidden');
       info.append(h('h3', {}, h('span', { style: { fontSize: '44px', marginRight: '12px', color: 'var(--cyan)' } }, st.key), t('letters')), h('p', {}, sh[lang === 'ja' ? 'ja' : 'en']));
       if (sh.motion) info.append(h('p', { style: { color: 'var(--yellow)' } }, '↯ ' + (lang === 'ja' ? '動きのある文字です' : 'This letter moves!')));
-      say(`letter_${st.key}`, `${st.key}. ${sh[lang === 'ja' ? 'ja' : 'en']}`);
+      // human voice says the letter; the how-to is shown as a caption
+      sayLetter(st.key, { caption: `${st.key}. ${sh[lang === 'ja' ? 'ja' : 'en']}`, captionHold: 4500 });
       cam.fb.innerHTML = `<div>${t('practiceHint')}</div>`;
       practice(st.key);
     } else {
@@ -152,8 +153,15 @@ export function lessonScreen({ n }) {
         info.append(h('h3', {}, spelled ? word : (lang === 'ja' ? st.w.ja : st.w.en.toUpperCase())),
           h('p', {}, `${spelled ? '🔤 ' + t('fingerspelled') : '🤟 ' + t('sign')} · ${t('meaning')}: ${lang === 'ja' ? st.w.ja : st.w.en}`));
         extra.append(h('div', { class: 'mouth-tip' }, '👄 ' + t('mouthIt', { w: spelled ? word.toLowerCase() : word })));
-        avatar.play([tok]);
-        say(`word_${tok.replace('#', '')}`, spokenWord(lang === 'ja' ? st.w.ja : st.w.en));
+        if (spelled) {
+          // say each letter as Miko fingerspells it, then the whole word
+          avatar.onLetter = (ch) => sayLetter(ch, { captionHold: 300 });
+          avatar.play([tok]).then((ok) => { avatar.onLetter = null; if (ok) sayWords(word); });
+        } else {
+          avatar.onLetter = null;
+          avatar.play([tok]);
+          sayWords(word, { caption: `${word} — ${lang === 'ja' ? st.w.ja : st.w.en}` });
+        }
       } else {
         partLbl.textContent = t('partSentence');
         const s = st.s;
@@ -162,7 +170,8 @@ export function lessonScreen({ n }) {
         extra.append(gloss, h('div', { class: 'mouth-tip' }, '👄 ' + t('mouthIt', { w: lang === 'ja' ? s.ja : s.en })));
         // highlight gloss tokens as the teacher signs them
         playSentence(s.toks, gloss);
-        say(`sent_${lang}_${n}`, lang === 'ja' ? s.ja : s.en);
+        // the human voice says the signed words (what you mouth), caption shows the full sentence
+        sayWords(s.toks.map((tk) => (tk.startsWith('#') ? tk.slice(1) : (LEXICON[tk]?.mouth || tk))).join(' '), { caption: lang === 'ja' ? s.ja : s.en, captionHold: 2500 });
       }
     }
     nextB.textContent = i === steps.length - 1 ? '✓ ' + t('done') : t('next') + ' ▶';
