@@ -1,0 +1,11 @@
+<!doctype html><html><body style="margin:0;background:#141a3a;display:grid;grid-template-columns:repeat(4,300px);gap:4px">
+<script type="module">
+import { Avatar } from '../src/renderer/js/avatar.js';
+const tests = [['HELLO',900],['THANK_YOU',800],['LOVE',900],['NAME',600],['MOTHER',500],['#CAT',1400],['SCHOOL',600],['ありがとう',700,'ja'],['こんにちは',1300,'ja'],['たべる',800,'ja'],['WHAT',600],['ILY',700]];
+for (const [tok, off, lang] of tests) {
+  const c = document.createElement('canvas'); c.style.width='300px'; c.style.height='340px'; document.body.appendChild(c);
+  const a = new Avatar(c, { lang: lang || 'en' }); a.play([tok]);
+  setTimeout(()=>{ a.t0 = performance.now() - off - 250; }, 50);
+  setTimeout(()=>{ a.running=false; }, 400);
+}
+</script></body></html>

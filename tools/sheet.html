@@ -1,0 +1,14 @@
+<!doctype html><html><body style="margin:0;background:#1b2240"><canvas id="c" width="1600" height="1400"></canvas>
+<script type="module">
+import { synthesize, drawHand, SKIN, VIEW34 } from '../src/renderer/js/handmodel.js';
+import { ASL, JSL, ASL_WORDSHAPES } from '../src/renderer/js/signs.js';
+const c = document.getElementById('c'), ctx = c.getContext('2d');
+const all = [...Object.entries(ASL), ...Object.entries(ASL_WORDSHAPES), ...Object.entries(JSL)];
+all.forEach(([k, v], i) => {
+  const col = i % 10, row = Math.floor(i / 10);
+  const cx = 80 + col * 155, cy = 200 + row * 260;
+  drawHand(ctx, synthesize(v.pose), { cx, cy: cy - 90, scale: 150, skin: SKIN.light, view: VIEW34 });
+  ctx.fillStyle = '#fff'; ctx.font = '24px sans-serif'; ctx.fillText(k, cx - 10, cy + 50);
+});
+document.title = 'done';
+</script></body></html>

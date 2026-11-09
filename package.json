@@ -1,0 +1,100 @@
+{
+  "name": "sign-it",
+  "productName": "Sign It",
+  "version": "0.1.0",
+  "description": "Sign It - learn American Sign Language (ASL) and Japanese Sign Language (JSL) with camera hand tracking. Recommended for all ages.",
+  "main": "src/main/main.js",
+  "homepage": "https://shoukugames.org/",
+  "author": {
+    "name": "Shawn Rapaz",
+    "email": "info@shoukugames.org",
+    "url": "https://shoukugames.org/"
+  },
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "vendor": "node tools/vendor.js",
+    "postinstall": "node tools/vendor.js",
+    "test": "node tools/test-recognizer.mjs",
+    "icons": "python3 tools/make-icons.py",
+    "voice:script": "node tools/voice-script.mjs",
+    "voice:manifest": "node tools/voice-manifest.js",
+    "prebuild": "node tools/vendor.js && node tools/voice-manifest.js",
+    "dist:linux": "npm run prebuild && electron-builder --linux deb",
+    "dist:win": "npm run prebuild && electron-builder --win nsis portable",
+    "dist": "npm run prebuild && electron-builder --linux deb --win nsis portable"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "@fontsource/m-plus-rounded-1c": "^5.1.0",
+    "@mediapipe/tasks-vision": "^0.10.18"
+  },
+  "build": {
+    "appId": "org.shoukugames.signit",
+    "productName": "Sign It",
+    "copyright": "Copyright © 2026 Shawn Rapaz",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build-resources"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "!assets/voice/SCRIPT_*.csv",
+      "build-resources/icon.png",
+      "package.json",
+      "LICENSE"
+    ],
+    "asar": true,
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "category": "Education",
+      "icon": "build-resources/icons",
+      "maintainer": "Shawn Rapaz <info@shoukugames.org>",
+      "vendor": "Shouku Games",
+      "synopsis": "Learn ASL and Japanese Sign Language with camera hand tracking",
+      "description": "Sign It teaches American Sign Language (ASL) and Japanese Sign Language (JSL) with 20 lessons, 2 quizzes and 20 camera-judged levels. Recommended for all ages.",
+      "desktop": {
+        "Name": "Sign It",
+        "Comment": "Learn sign language with your hands",
+        "Keywords": "sign;language;ASL;JSL;education;kids;"
+      }
+    },
+    "deb": {
+      "artifactName": "${name}_${version}_${arch}.${ext}",
+      "depends": [
+        "libgtk-3-0",
+        "libnotify4",
+        "libnss3",
+        "libxss1",
+        "libxtst6",
+        "xdg-utils",
+        "libatspi2.0-0",
+        "libuuid1",
+        "libsecret-1-0",
+        "fonts-noto-color-emoji"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build-resources/icons/256x256.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "license": "LICENSE",
+      "artifactName": "Sign-It-Setup-${version}.${ext}",
+      "shortcutName": "Sign It"
+    },
+    "portable": {
+      "artifactName": "Sign-It-${version}-portable.${ext}"
+    }
+  }
+}
