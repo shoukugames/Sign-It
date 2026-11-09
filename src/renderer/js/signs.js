@@ -8,8 +8,8 @@
 import { F } from './handmodel.js';
 
 const T = { // thumb tip targets
-  side: { tip: [-0.17, 0.33, 0.08] },
-  out: { tip: [-0.40, 0.31, 0.03] },
+  side: { tip: [-0.17, 0.50, 0.09] },   // beside the index finger, up by its middle knuckle (real-photo tuned)
+  out: { tip: [-0.40, 0.42, 0.03] },
   across: { tip: [0.0, 0.24, 0.08] },
   front: { tip: [-0.01, 0.31, 0.27] },
   hold: { tip: [0.05, 0.30, 0.24] },
@@ -33,7 +33,8 @@ export const ASL = {
   E: { pose: { index: F.E, middle: F.E, ring: F.E, pinky: F.E, thumb: T.e }, en: 'Bend your fingertips down to touch your thumb, which is tucked under them.', ja: '指先を曲げて、下に折った親指に軽くのせます。' },
   F: { pose: { index: F.O, middle: F.S, ring: F.S, pinky: F.S, splay: { index: -2, middle: 2, ring: 9, pinky: 18 }, thumb: { touch: 'index' } }, en: 'Touch your index finger to your thumb to make a circle. Spread the other three fingers up.', ja: '人差し指と親指で輪を作り、残りの3本を広げて立てます。' },
   G: { pose: { index: F.S, middle: F.C, ring: F.C, pinky: F.C, thumb: T.g, rot: { z: 90, x: 180 } }, en: 'Point your index finger sideways with your thumb above it, like a little beak.', ja: '人差し指を横に向け、親指をその上に平行にそえます。' },
-  H: { pose: { index: F.S, middle: F.S, ring: F.C, pinky: F.C, splay: { index: 1, middle: -1 }, thumb: T.hold, rot: { z: 90, x: 180 } }, en: 'Point your index and middle fingers sideways, held together.', ja: '人差し指と中指をそろえて横に向けます。' },
+  H: { pose: { index: F.S, middle: F.S, ring: F.C, pinky: F.C, splay: { index: 1, middle: -1 }, thumb: T.hold, rot: { z: 90, x: 180 } },
+    alt: [{ index: F.S, middle: F.S, ring: F.C, pinky: F.C, splay: { index: 1, middle: -1 }, thumb: { tip: [-0.30, 0.47, 0.06] }, rot: { z: 70, x: 160 } }], en: 'Point your index and middle fingers sideways, held together.', ja: '人差し指と中指をそろえて横に向けます。' },
   I: { pose: { ...fist, pinky: F.S, thumb: T.front }, en: 'Make a fist and raise only your pinky finger.', ja: 'こぶしから小指だけを立てます。' },
   J: { pose: { ...fist, pinky: F.S, thumb: T.front }, motion: 'J', en: 'Make the letter I, then draw a J in the air with your pinky (down, then curve).', ja: '「I」の形から、小指で空中に「J」を描きます。' },
   K: { pose: { index: F.S, middle: [0.42, 0, 0], ring: F.C, pinky: F.C, splay: { index: -8, middle: 6 }, thumb: { touch: 'middle', at: 'pip', off: [-0.03, 0, 0.03] } }, en: 'Point index finger up and middle finger forward. Put your thumb between them.', ja: '人差し指を上、中指を前に出し、その間に親指を当てます。' },
@@ -41,8 +42,10 @@ export const ASL = {
   M: { pose: { index: F.M, middle: F.M, ring: F.M, pinky: F.C, thumb: T.m }, en: 'Tuck your thumb under your first three fingers.', ja: '親指を人差し指・中指・薬指の下に入れます。' },
   N: { pose: { index: F.M, middle: F.M, ring: F.C, pinky: F.C, thumb: T.n }, en: 'Tuck your thumb under your first two fingers.', ja: '親指を人差し指と中指の下に入れます。' },
   O: { pose: { index: F.O, middle: F.O, ring: F.O, pinky: F.O, splay: { index: -1, middle: 0, ring: 2, pinky: 5 }, thumb: { touch: 'middle' }, rot: { y: -60 } }, en: 'Curve all your fingers to touch your thumb, making an O.', ja: 'すべての指を丸めて親指とくっつけ、「O」の形を作ります。' },
-  P: { pose: { index: F.S, middle: [0.42, 0, 0], ring: F.C, pinky: F.C, splay: { index: -8, middle: 6 }, thumb: { touch: 'middle', at: 'pip', off: [-0.03, 0, 0.03] }, rot: { x: 115 } }, en: 'Make a K and tip it so your fingers point down.', ja: '「K」の形を作り、指先を下に向けます。' },
-  Q: { pose: { index: F.S, middle: F.C, ring: F.C, pinky: F.C, thumb: T.g, rot: { x: 160 } }, en: 'Make a G and point it down toward the floor.', ja: '「G」の形を作り、下に向けます。' },
+  P: { pose: { index: F.S, middle: [0.42, 0, 0], ring: F.C, pinky: F.C, splay: { index: -8, middle: 6 }, thumb: { touch: 'middle', at: 'pip', off: [-0.03, 0, 0.03] }, rot: { x: 115 } },
+    alt: [{ index: F.S, middle: [0.42, 0, 0], ring: F.C, pinky: F.C, splay: { index: -8, middle: 6 }, thumb: { touch: 'middle', at: 'pip', off: [-0.03, 0, 0.03] }, rot: { z: 60, x: 100 } }], en: 'Make a K and tip it so your fingers point down.', ja: '「K」の形を作り、指先を下に向けます。' },
+  Q: { pose: { index: F.S, middle: F.C, ring: F.C, pinky: F.C, thumb: T.g, rot: { x: 160 } },
+    alt: [{ index: F.S, middle: F.C, ring: F.C, pinky: F.C, thumb: T.g, rot: { z: 40, x: 120 } }], en: 'Make a G and point it down toward the floor.', ja: '「G」の形を作り、下に向けます。' },
   R: { pose: { index: F.S, middle: F.S, ring: F.C, pinky: F.C, splay: { index: 12, middle: -10 }, zOff: { index: 0.03 }, thumb: T.hold }, en: 'Cross your index finger over your middle finger.', ja: '人差し指と中指を交差させます。' },
   S: { pose: { ...fist, thumb: T.front }, en: 'Make a fist with your thumb wrapped across the front of your fingers.', ja: 'こぶしを作り、親指を指の前に回します。' },
   T: { pose: { ...fist, index: F.M, thumb: T.t }, en: 'Make a fist and poke your thumb up between your index and middle fingers.', ja: 'こぶしを作り、親指を人差し指と中指の間から出します。' },

@@ -20,7 +20,7 @@ export function narrationLines(lang = 'en') {
     'lessonComplete', 'levelComplete', 'levelFailed', 'perfect', 'wellDone', 'passed', 'notPassed', 'correct', 'notQuiteShort',
     'greatSign', 'tryAgainSign', 'looksRight', 'showHand', 'practiceHint', 'quizIntro', 'levelDesc1', 'levelDesc2', 'levelDesc3', 'levelDesc4',
     'timeUp', 'signTheWord', 'watchMiko', 'privacyTitle', 'privacyBody1', 'privacyBody2', 'privacyBody3', 'gateText', 'tutDone',
-    'qWhichLetter', 'qWhatSign', 'parentsGate'].forEach((k) => T(k));
+    'qWhichLetter', 'qWhatSign', 'parentsGate', 'moveLikeMiko', 'copyMiko', 'goodEffort'].forEach((k) => T(k));
   for (const x of ['B', 'A']) T('calibCheck', { x });
   for (const k of GUIDE_KEYS) {
     if (k === 'gBend' || k === 'gStraight') for (const f of FINGER_KEYS) T(k, { f: tIn(lang, f) });

@@ -35,6 +35,12 @@ export function extract(pts) {
   }
   const t = local(pts[4]);
   f.tx = t[0]; f.ty = t[1]; f.tz = t[2];
+  // Thumb measured RELATIVE TO THE FINGERS, so it works for every hand size and shape
+  // (tuned on real photos — see tools/eval-real.mjs): across the knuckle line
+  // (0 = index knuckle, 1 = pinky knuckle, < 0 = outside the index) and height above it.
+  const k5 = local(pts[5]), k17 = local(pts[17]);
+  f.tAcross = (t[0] - k5[0]) / ((k17[0] - k5[0]) || 1);
+  f.tUp = t[1] - (k5[1] + k17[1]) / 2;
   f.ti = len(sub(pts[4], pts[8])) / palmLen;
   f.tm = len(sub(pts[4], pts[12])) / palmLen;
   const pi = V.sub(prox.index, V.mul(Z, dot(prox.index, Z)));
@@ -49,10 +55,11 @@ export function extract(pts) {
 
 // Feature weights and tolerances
 const SPEC = {
-  indexM: [1, 0.28], middleM: [1, 0.28], ringM: [0.8, 0.3], pinkyM: [0.9, 0.3],
+  // big-knuckle bend reads low on real fists, so it counts less than the middle joint
+  indexM: [0.7, 0.36], middleM: [0.7, 0.36], ringM: [0.55, 0.38], pinkyM: [0.6, 0.38],
   indexP: [1, 0.28], middleP: [1, 0.28], ringP: [0.8, 0.3], pinkyP: [0.9, 0.3],
-  tx: [1.1, 0.16], ty: [1.1, 0.16], tz: [0.9, 0.18],
-  ti: [0.7, 0.18], tm: [0.7, 0.18],
+  tAcross: [1.1, 0.4], tUp: [1.0, 0.24], tz: [0.8, 0.24],
+  ti: [0.7, 0.24], tm: [0.7, 0.24],
   spread: [0.6, 0.35], cross: [0.9, 0.11],
   px: [1.2, 0.42], py: [1.2, 0.42], nz: [0.7, 0.55], ny: [0.4, 0.6]
 };
@@ -75,16 +82,34 @@ export function similarity(p, t, detail = false) {
   return detail ? { score: s, parts } : s;
 }
 
+/** Handshape only, ignoring which way the hand points or faces (used for whole-word signs). */
+export function shapeSimilarity(p, t) {
+  const q = { ...p, px: t.px, py: t.py, nz: t.nz, ny: t.ny };
+  return similarity(q, t);
+}
+
 // ---- templates ---------------------------------------------------------------
 const cache = {};
-export function template(lang, key) {
+/** All accepted forms of a sign (main pose + common real-world variants in signs.js `alt`). */
+export function templates(lang, key) {
   const id = lang + ':' + key;
   if (!cache[id]) {
     const sh = getShape(lang, key);
     if (!sh) return null;
-    cache[id] = extract(synthesize(sh.pose));
+    cache[id] = [sh.pose, ...(sh.alt || [])].map((pose) => extract(synthesize(pose)));
   }
   return cache[id];
+}
+/** The main template (used for coaching and illustrations). */
+export function template(lang, key) {
+  const t = templates(lang, key);
+  return t ? t[0] : null;
+}
+/** Best similarity over every accepted form; returns [score, templateUsed]. */
+function bestOf(f, list) {
+  let best = -1, used = list[0];
+  for (const t of list) { const s = similarity(f, t); if (s > best) { best = s; used = t; } }
+  return [best, used];
 }
 export function allKeys(lang) {
   const keys = Object.keys(signSet(lang));
@@ -118,9 +143,11 @@ export function meanFeatures(list) {
 
 // ---- scoring --------------------------------------------------------------------
 export const DIFFICULTY = {
-  easy: { star1: 0.40, star2: 0.55, star3: 0.72, hold: 450, needTop: false, time: 25 },
-  medium: { star1: 0.47, star2: 0.63, star3: 0.79, hold: 650, needTop: false, time: 18 },
-  hard: { star1: 0.54, star2: 0.70, star3: 0.85, hold: 850, needTop: true, time: 12 }
+  // Thresholds tuned on real photos (tools/eval-real.mjs). maxRank = how many other letters may
+  // look MORE like the player's hand than the target and it still counts.
+  easy: { star1: 0.40, star2: 0.52, star3: 0.66, hold: 400, maxRank: 3, anyRankAt: 0.60, time: 25 },
+  medium: { star1: 0.45, star2: 0.58, star3: 0.72, hold: 550, maxRank: 2, anyRankAt: 0.70, time: 18 },
+  hard: { star1: 0.50, star2: 0.65, star3: 0.80, hold: 750, maxRank: 1, anyRankAt: 2, time: 12 }
 };
 
 /**
@@ -128,23 +155,22 @@ export const DIFFICULTY = {
  * Returns { score, rank, best, confusedWith }
  */
 export function scoreSign(f, lang, key) {
-  const tgt = template(lang, key);
-  if (!tgt) return { score: 0, rank: 99 };
-  const s = similarity(f, tgt);
+  const tgts = templates(lang, key);
+  if (!tgts) return { score: 0, rank: 99 };
+  const [s, used] = bestOf(f, tgts);
   let rank = 1, bestOther = 0, confusedWith = null;
   for (const k of allKeys(lang)) {
     if (k === key) continue;
-    const t2 = template(lang, k);
     // identical handshapes (e.g. I and J differ only by motion) never compete
     if (sameShape(lang, k, key)) continue;
-    const s2 = similarity(f, t2);
+    const s2 = bestOf(f, templates(lang, k))[0];
     if (s2 > s) rank++;
     if (s2 > bestOther) { bestOther = s2; confusedWith = k; }
   }
   // if another sign is clearly a better match, soften the score
   let adj = s;
   if (bestOther > s + 0.04) adj = s * 0.85;
-  return { score: adj, raw: s, rank, confusedWith: bestOther > s ? confusedWith : null };
+  return { score: adj, raw: s, rank, confusedWith: bestOther > s ? confusedWith : null, used };
 }
 function sameShape(lang, a, b) {
   const A = getShape(lang, a), B = getShape(lang, b);
@@ -153,9 +179,8 @@ function sameShape(lang, a, b) {
 
 export function stars(score, diff, rank = 1) {
   const d = DIFFICULTY[diff] || DIFFICULTY.medium;
-  let st = score >= d.star3 ? 3 : score >= d.star2 ? 2 : score >= d.star1 ? 1 : 0;
-  if (d.needTop && rank > 1) st = Math.min(st, 1);
-  return st;
+  if (rank > d.maxRank && score < d.anyRankAt) return 0; // a very strong match counts even among look-alikes
+  return score >= d.star3 ? 3 : score >= d.star2 ? 2 : score >= d.star1 ? 1 : 0;
 }
 
 // ---- motion (J, Z) -----------------------------------------------------------------
@@ -267,10 +292,10 @@ export function guide(p, t) {
   if (t.ti < 0.28 && reaching('index') && p.ti > 0.42) th.push({ key: 'gThumbTouchIndex', sev: (p.ti - t.ti) / 0.18 });
   else if (t.tm < 0.28 && reaching('middle') && p.tm > 0.42) th.push({ key: 'gThumbTouchMiddle', sev: (p.tm - t.tm) / 0.18 });
   else if (t.ti > 0.5 && p.ti < 0.25) th.push({ key: 'gThumbApart', sev: 1.2 });
-  const dx = p.tx - t.tx, dz = p.tz - t.tz, dy = p.ty - t.ty;
-  if (Math.abs(dx) > 0.18) th.push({ key: dx > 0 ? 'gThumbOut' : 'gThumbIn', sev: Math.abs(dx) / 0.18 });
-  if (Math.abs(dz) > 0.2) th.push({ key: dz < 0 ? 'gThumbFront' : 'gThumbBack', sev: Math.abs(dz) / 0.2 * 0.9 });
-  if (Math.abs(dy) > 0.22) th.push({ key: dy > 0 ? 'gThumbDown' : 'gThumbUp', sev: Math.abs(dy) / 0.22 * 0.8 });
+  const dx = p.tAcross - t.tAcross, dz = p.tz - t.tz, dy = p.tUp - t.tUp;
+  if (Math.abs(dx) > 0.45) th.push({ key: dx > 0 ? 'gThumbOut' : 'gThumbIn', sev: Math.abs(dx) / 0.45 });
+  if (Math.abs(dz) > 0.26) th.push({ key: dz < 0 ? 'gThumbFront' : 'gThumbBack', sev: Math.abs(dz) / 0.26 * 0.9 });
+  if (Math.abs(dy) > 0.28) th.push({ key: dy > 0 ? 'gThumbDown' : 'gThumbUp', sev: Math.abs(dy) / 0.28 * 0.8 });
   th.sort((a, b) => b.sev - a.sev);
   if (th[0]) tips.push({ ...th[0], f: 'fThumb', finger: 'thumb', cat: 'thumb' });
 

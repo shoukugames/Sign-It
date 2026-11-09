@@ -214,9 +214,18 @@ export function levelScreen({ n }) {
     if (st && n < 20 && (store.lang().levels[n]?.attempts === 1 || st)) sfx.unlock();
   }
 
+  const onKey = (e) => {
+    if ((e.code !== 'Space' && e.key !== ' ') || (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) || document.querySelector('.modal-back')) return;
+    e.preventDefault();
+    if (e.repeat) return;
+    if (practiceNext) { practiceNext(); return; }
+    const resultNext = el.querySelector('.result .btn.green, .result .btn.pink');
+    if (resultNext) resultNext.click();
+  };
+  document.addEventListener('keydown', onKey);
   run();
   return {
     el, usesCamera: true,
-    destroy() { alive = false; if (cancelAuto) cancelAuto(); tm.stop(); clearTimeout(hintTimer); viewer.destroy(); cam.destroy(); }
+    destroy() { alive = false; document.removeEventListener('keydown', onKey); if (cancelAuto) cancelAuto(); tm.stop(); clearTimeout(hintTimer); viewer.destroy(); cam.destroy(); }
   };
 }

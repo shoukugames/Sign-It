@@ -26,7 +26,8 @@ async function loadLandmarker() {
   const opts = (delegate) => ({
     baseOptions: { modelAssetPath: new URL('../vendor/mediapipe/hand_landmarker.task', import.meta.url).href, delegate },
     runningMode: 'VIDEO', numHands: 2,
-    minHandDetectionConfidence: 0.5, minHandPresenceConfidence: 0.5, minTrackingConfidence: 0.5
+    // forgiving thresholds keep tracking through fast moves, dim light and curled fingers
+    minHandDetectionConfidence: 0.35, minHandPresenceConfidence: 0.35, minTrackingConfidence: 0.35
   });
   try { landmarker = await HandLandmarker.createFromOptions(fileset, opts('GPU')); }
   catch (_) { landmarker = await HandLandmarker.createFromOptions(fileset, opts('CPU')); }
@@ -38,7 +39,7 @@ export async function start() {
   if (running) return true;
   setStatus('starting');
   try {
-    stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { width: { ideal: 960 }, height: { ideal: 720 }, facingMode: 'user', frameRate: { ideal: 30 } } });
+    stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user', frameRate: { ideal: 30 } } });
     video = document.createElement('video');
     video.muted = true; video.playsInline = true;
     video.srcObject = stream;
@@ -84,30 +85,69 @@ function loop() {
   subs.forEach((fn) => fn(latest));
 }
 
+/** One detected hand → everything the game needs (model-space points, features, image box). */
+export function handFromResult(res, i, calib) {
+  const lm = res.landmarks[i];
+  const label = res.handedness?.[i]?.[0]?.categoryName || 'Right';
+  const conf = res.handedness?.[i]?.[0]?.score || 0;
+  const world = res.worldLandmarks?.[i] || lm;
+  // MediaPipe Tasks reports the TRUE hand ("Right" = the player's right hand) for unmirrored
+  // webcam frames (verified on real photos, see tools/real-hand-test.html). Model space is the
+  // mirrored right hand, so only a left hand needs its x flipped.
+  const flipX = calib ? (label === calib.label ? calib.flipX : !calib.flipX) : label === 'Left';
+  const model = world.map((p) => [flipX ? p.x : -p.x, -p.y, -p.z]);
+  const img = lm.map((p) => ({ x: 1 - p.x, y: p.y })); // mirrored, normalised
+  const xs = img.map((p) => p.x), ys = img.map((p) => p.y);
+  const palmImg = Math.hypot(img[9].x - img[0].x, img[9].y - img[0].y) || 0.01;
+  const center = { x: (img[0].x + img[5].x + img[17].x) / 3, y: (img[0].y + img[5].y + img[17].y) / 3 };
+  return {
+    label, conf, flipX, model, img, center, palmImg,
+    bbox: { x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) },
+    isDominant: calib ? label === calib.label : label.toLowerCase() === (store.settings.dominant || 'right'),
+    features: applyCalibration(extract(model), calib)
+  };
+}
+
+// ---- One Euro filter: removes landmark jitter without adding lag (Casiez et al. 2012) ----
+class OneEuro {
+  constructor(minCutoff, beta) { this.minCutoff = minCutoff; this.beta = beta; this.x = null; this.dx = 0; this.t = 0; }
+  static alpha(cutoff, dt) { const r = 2 * Math.PI * cutoff * dt; return r / (r + 1); }
+  filter(x, t) {
+    if (this.x === null) { this.x = x; this.t = t; return x; }
+    const dt = Math.max(1e-3, (t - this.t) / 1000); this.t = t;
+    const dx = (x - this.x) / dt;
+    this.dx += OneEuro.alpha(1, dt) * (dx - this.dx);
+    const cutoff = this.minCutoff + this.beta * Math.abs(this.dx);
+    this.x += OneEuro.alpha(cutoff, dt) * (x - this.x);
+    return this.x;
+  }
+}
+const filters = new Map(); // per hand label → arrays of filters
+function smooth(res, ts) {
+  const seen = new Set();
+  (res.landmarks || []).forEach((lm, i) => {
+    const label = res.handedness?.[i]?.[0]?.categoryName || 'Right';
+    if (seen.has(label)) return; // two hands with the same label: leave the second one raw
+    seen.add(label);
+    let F = filters.get(label);
+    if (!F || ts - F.last > 300) { // new or re-appearing hand: start fresh
+      F = { img: lm.map(() => [new OneEuro(1.6, 6), new OneEuro(1.6, 6)]), world: (res.worldLandmarks?.[i] || lm).map(() => [new OneEuro(1.4, 20), new OneEuro(1.4, 20), new OneEuro(1.4, 20)]), last: ts };
+      filters.set(label, F);
+    }
+    F.last = ts;
+    res.landmarks[i] = lm.map((p, k) => ({ x: F.img[k][0].filter(p.x, ts), y: F.img[k][1].filter(p.y, ts), z: p.z }));
+    if (res.worldLandmarks?.[i]) res.worldLandmarks[i] = res.worldLandmarks[i].map((p, k) => ({ x: F.world[k][0].filter(p.x, ts), y: F.world[k][1].filter(p.y, ts), z: F.world[k][2].filter(p.z, ts) }));
+  });
+}
+
 function process(res, ts) {
   const calib = store.s.calibration;
-  const hands = (res.landmarks || []).map((lm, i) => {
-    const label = res.handedness?.[i]?.[0]?.categoryName || 'Right';
-    const conf = res.handedness?.[i]?.[0]?.score || 0;
-    const world = res.worldLandmarks?.[i] || lm;
-    const flipX = calib ? (label === calib.label ? calib.flipX : !calib.flipX) : label === 'Right';
-    const model = world.map((p) => [flipX ? p.x : -p.x, -p.y, -p.z]);
-    const img = lm.map((p) => ({ x: 1 - p.x, y: p.y })); // mirrored, normalised
-    const xs = img.map((p) => p.x), ys = img.map((p) => p.y);
-    const palmImg = Math.hypot(img[9].x - img[0].x, img[9].y - img[0].y) || 0.01;
-    const center = { x: (img[0].x + img[5].x + img[17].x) / 3, y: (img[0].y + img[5].y + img[17].y) / 3 };
-    return {
-      label, conf, flipX, model, img, center, palmImg,
-      bbox: { x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) },
-      isDominant: calib ? label === calib.label : true
-    };
-  });
+  smooth(res, ts);
+  const hands = (res.landmarks || []).map((_, i) => handFromResult(res, i, calib));
   // primary = dominant hand if visible, otherwise the largest
   let primary = hands.find((h) => h.isDominant) || null;
   if (!primary && hands.length) primary = hands.slice().sort((a, b) => b.palmImg - a.palmImg)[0];
-  let features = null;
-  if (primary) features = applyCalibration(extract(primary.model), calib);
-  return { ts, hands, primary, features };
+  return { ts, hands, primary, features: primary ? primary.features : null };
 }
 
 // ---------------------------------------------------------------------------

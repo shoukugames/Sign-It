@@ -7,13 +7,57 @@ your hand and finger shapes, with every image processed on the device.
 
 *Recommended for all ages.*
 
-- **Version:** 0.1.3 (released 2026-11-09)
+- **Version:** 0.1.4 (released 2026-11-09)
 - **Creator:** Shawn Rapaz, with Claude Code
 - **Website:** <https://shoukugames.org/>
 - **Email:** <info@shoukugames.org>
 - **License:** [GNU GPL v3.0 or later](LICENSE)
 
 ---
+
+## What's new in v0.1.4
+
+**The camera now recognises hands properly.** This release fixes the reasons
+signs failed or the game kept asking players to "turn your palm to face the
+camera" while it already was.
+
+- **Fixed: hands were processed as their mirror image.** The game assumed the
+  hand tracker labels a right hand "Left" in an unmirrored webcam picture. It
+  doesn't, so every right hand was mirrored: the palm looked like it faced away
+  and the thumb was on the wrong side, and almost nothing scored. On real
+  photos of signers, letters went from essentially 0% recognised to most
+  letters recognised.
+- **Tuned on real people, not just the 3D model.** Recognition is now tested
+  against real photos of two signers fingerspelling the ASL alphabet (see
+  [Testing recognition with real photos](#testing-recognition-with-real-photos)).
+  - The thumb is measured relative to the fingers (across the knuckles and
+    above or below them), so it works for every hand shape and size.
+  - The A, L and Y thumbs were raised to where real signers hold them.
+  - Big-knuckle bend counts less, because the tracker under-reads it in a fist.
+  - Common variants are accepted (H with the thumb up; P and Q at other angles).
+  - Star thresholds were re-tuned per difficulty. On Easy, 25 of 29 real
+    letters are accepted.
+- **Steadier tracking.** A One Euro filter smooths the hand points without lag,
+  detection thresholds are more forgiving, and the camera asks for 1280×720.
+  A dropped frame during a fast move no longer resets the sign or flashes
+  "Show your hand". The camera panel also says when the hand is too far away or
+  too close.
+- **Lessons move on by themselves, based on your hand.**
+  - **Letters:** recognition starts right away, even while the instruction is
+    still being spoken. Hold the sign and it moves on.
+  - **Fingerspelled words:** you spell each letter.
+  - **Word signs** (HELLO, LOVE, …): copy Miko. The game checks her key
+    handshape at any angle, plus movement for signs that move.
+  - **Sentences:** you sign them word by word.
+  - Lessons use Easy recognition, and if you keep trying with your hand in view
+    for about 25–30 seconds, the lesson says "Good effort! Let's keep going"
+    and continues, so nobody gets stuck.
+  - **Space bar = Next** everywhere: lessons (also continues from the
+    lesson-complete screen), levels ("I did it" in practice mode, and the
+    level-complete screen) and the calibration Finish button.
+- **Calibration** is time-based (about 1.5 seconds of a steady hand), so it
+  works on slower computers and tablets too. It stores which hand you sign
+  with and how the camera sees it.
 
 ## What's new in v0.1.3
 
@@ -91,23 +135,64 @@ your hand and finger shapes, with every image processed on the device.
 
 1. **Google MediaPipe Hand Landmarker** finds 21 3D points on each hand. It runs on
    the device through WebAssembly and the GPU.
-2. The game turns those points into an *anatomical feature vector*: how bent each
-   finger is at each knuckle, where the thumb tip sits in the palm's own
-   coordinates, whether fingertips touch, whether fingers are spread or crossed,
-   and which way the hand points and faces.
-3. Every sign is described once as a **procedural 3D hand pose**
+2. The tracker's left/right label tells the game which hand it sees. For an
+   unmirrored webcam picture, MediaPipe reports the **true** hand ("Right" =
+   your right hand). Points are smoothed with a One Euro filter.
+3. The game turns those points into an *anatomical feature vector*: how bent
+   each finger is at each knuckle, where the thumb tip sits **relative to the
+   fingers** (across and above the knuckle line), whether fingertips touch,
+   whether fingers are spread or crossed, and which way the hand points and
+   faces.
+4. Every sign is described once as a **procedural 3D hand pose**
    (`src/renderer/js/signs.js`). The *same* pose draws the illustration you see
    and builds the template you're judged against, so the picture and the judging
-   always agree.
-4. Calibration maps your own open-hand-to-fist range onto the model, so children
+   always agree. Signs can list accepted real-world variants (`alt`).
+5. Calibration maps your own open-hand-to-fist range onto the model, so children
    and adults with different flexibility are judged fairly.
-5. A sign scores when you hold it steadily. The two moving ASL letters,
-   **J** and **Z**, are checked by tracing the fingertip's path. If another sign
-   is clearly a better match, the score is lowered (on Hard, the sign is
-   rejected).
+6. A sign scores when you hold it steadily and it earns a star. Each
+   difficulty sets the star thresholds and how many look-alike letters may
+   match better (Easy 3, Medium 2, Hard 0). A very strong match always counts.
+   The two moving ASL letters, **J** and **Z**, are checked by tracing the
+   fingertip's path.
+7. Whole-word signs in lessons are checked by their key handshape (taken from
+   Miko's animation, at any angle) plus movement for signs that move.
 
 Run the recognizer self-test with `npm test`. It checks that every template
 picks itself out of the whole alphabet, including with simulated tracking noise.
+
+### Testing recognition with real photos
+
+`npm run test:real` scores the recognizer against **real hand landmarks**:
+how many letters are recognised, how many earn a star, and how often a wrong
+letter would be accepted. Results on photos of two signers (29 static ASL
+letters):
+
+| Difficulty | Best match | Earns ≥1★ | Wrong letter accepted |
+|---|---|---|---|
+| Easy (lessons) | 21 / 29 | 25 / 29 | 8.6% |
+| Medium | 21 / 29 | 23 / 29 | 4.5% |
+| Hard | 21 / 29 | 20 / 29 | 1.0% |
+
+Most remaining misses (I, P, Q, X) are photos where the tracker itself put the
+fingers in the wrong place. Live video, with smoothing and coaching, is easier.
+
+To refresh the landmark data:
+
+1. Put photos named `<anything>_<LETTER>.jpg` in `tools/testdata/` (right hand,
+   unmirrored, like a webcam). The release used the Tanzanian and Nigerian Sign
+   Language manual-alphabet photos from Wikimedia Commons. The folder is
+   git-ignored and the photos are not redistributed.
+2. Serve the repo root (`python3 -m http.server`) and open
+   `/tools/real-hand-test.html?files=ngr_A,ngr_B,…`.
+3. Save the JSON lines it prints to `tools/testdata/real.jsonl`.
+
+### Tips for the best tracking
+
+- Run **Hand Calibration** once (title screen). It takes about 10 seconds.
+- Use good light from the front, not a bright window behind you.
+- Keep your hand about 40–70 cm from the camera, with the whole hand in view.
+  The camera panel tells you if you're too close or too far.
+- Hold each sign still for a moment. A ring fills up while you hold.
 
 ## Sign accuracy review
 
@@ -203,7 +288,8 @@ regenerate the icons.
 ```bash
 npm install        # also downloads the hand model and copies runtime files (tools/vendor.js)
 npm start          # run the game
-npm test           # recognizer self-test
+npm test           # recognizer self-test (synthetic hands)
+npm run test:real  # recognizer vs. real hand photos (see below)
 ```
 
 Press **F11** to toggle full screen.
@@ -211,8 +297,8 @@ Press **F11** to toggle full screen.
 ## Building installers
 
 ```bash
-npm run dist:linux   # dist/sign-it_0.1.3_amd64.deb
-npm run dist:win     # dist/Sign-It-Setup-0.1.3.exe (installer) + dist/Sign-It-0.1.3-portable.exe
+npm run dist:linux   # dist/sign-it_0.1.4_amd64.deb
+npm run dist:win     # dist/Sign-It-Setup-0.1.4.exe (installer) + dist/Sign-It-0.1.4-portable.exe
 npm run dist         # both
 ```
 
@@ -222,7 +308,7 @@ depends on `fonts-noto-color-emoji` so that icons display correctly.
 Install on Debian/Ubuntu:
 
 ```bash
-sudo apt install ./dist/sign-it_0.1.3_amd64.deb
+sudo apt install ./dist/sign-it_0.1.4_amd64.deb
 ```
 
 ## Project layout

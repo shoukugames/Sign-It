@@ -5,7 +5,7 @@ import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
 import { sfx, narrate, sayLetter, sayWords, sayLetterHowTo, isSpeaking } from '../audio.js';
 import { lessons, PASS_PCT } from '../curriculum.js';
-import { Avatar, LEXICON } from '../avatar.js';
+import { Avatar, LEXICON, signTemplates } from '../avatar.js';
 import { getShape } from '../signs.js';
 import { synthesize } from '../handmodel.js';
 import { HandViewer } from '../handviewer.js';
@@ -100,7 +100,7 @@ export function lessonScreen({ n }) {
   const left = h('div', { class: 'panel' },
     h('div', { class: 'panel-head' }, '🎓 ', t('lessonN', { n }), ' · ', ls.title[J], h('span', { class: 'tag' }, t('mirrorNote'))),
     stage, info, coach, extra,
-    h('div', { class: 'panel-foot' }, prevB, againB, h('div', { style: { flex: 1 } }), nextB));
+    h('div', { class: 'panel-foot' }, prevB, againB, h('div', { style: { flex: 1 } }), h('span', { class: 'kbd-hint' }, t('pressSpace')), nextB));
   const cam = new CameraPanel({ title: t('tryWithCamera') });
   const avatar = new Avatar(avatarCanvas, { lang, skin: store.settings.skin });
   const viewer = new HandViewer(handCanvas, { scale: 0.74 });
@@ -155,34 +155,47 @@ export function lessonScreen({ n }) {
   function setCoach(on) {
     coachOn = on;
     coach.classList.toggle('hidden', !on);
-    coachTip.textContent = camera.isOn() ? t('practiceHint') : t('cameraNeeded');
+    const camWanted = camera.isOn() || store.settings.camera;
+    coachTip.textContent = camWanted ? t('practiceHint') : t('cameraNeeded');
     coach.querySelector('.chips').classList.toggle('hidden', !camera.isOn());
     viewer.highlight = [];
     lastTipId = ''; lastSpoken = performance.now();
   }
 
   // ---- step flows ----
+  // Lessons are for learning: they use Easy recognition, and if a player keeps
+  // trying for a long while the lesson still moves on, so nobody gets stuck.
+  const LEARN = { difficulty: 'easy', giveUpAfter: 30000 };
+
+  async function praise(r, label) {
+    if (r.gaveUp) { coachTip.textContent = '👍 ' + t('goodEffort'); narrate(t('goodEffort')); return; }
+    cam.showBurst(Math.max(1, r.stars), label);
+    sfx.correct();
+    viewer.highlight = [];
+    coachTip.textContent = '🎉 ' + t('greatSign');
+    coachTip.classList.add('ok');
+    narrate(t('greatSign'));
+  }
+
   async function letterFlow(my, key) {
     const sh = getShape(lang, key);
-    await sayLetterHowTo(key, sh[lang === 'ja' ? 'ja' : 'en']);
-    if (my !== stepTok) return;
-    if (!camera.isOn()) { scheduleNext(10); return; }
-    while (my === stepTok) {
-      if (!camera.isOn()) { await sleep(400); continue; }
-      const r = await cam.match(lang, key, {});
-      if (my !== stepTok || r.cancelled) return;
-      store.recordSign(key, r.stars > 0);
-      if (r.stars >= 1) {
-        cam.showBurst(r.stars, key);
-        sfx.correct();
-        viewer.highlight = [];
-        coachTip.textContent = '🎉 ' + t('greatSign');
-        coachTip.classList.add('ok');
-        narrate(t('greatSign'));
-        scheduleNext(2);
-        return;
-      }
-    }
+    const speech = sayLetterHowTo(key, sh[lang === 'ja' ? 'ja' : 'en']);
+    if (!store.settings.camera) { await speech; if (my === stepTok) scheduleNext(10); return; }
+    // start watching the hand right away: a player who already knows the sign can go straight on
+    const r = await matchWhenReady(my, () => cam.match(lang, key, LEARN));
+    if (!r) return;
+    for (let k = 0; k < 30 && isSpeaking(); k++) await sleep(100); // let the instruction finish (max 3 s)
+    store.recordSign(key, r.stars > 0);
+    await praise(r, key);
+    scheduleNext(2);
+  }
+
+  /** Waits for the camera, then runs one match; null if the step changed. */
+  async function matchWhenReady(my, run) {
+    while (my === stepTok && !camera.isOn()) await sleep(400);
+    if (my !== stepTok) return null;
+    const r = await run();
+    return my !== stepTok || r.cancelled ? null : r;
   }
 
   async function spellFlow(my, word, rowEl) {
@@ -195,19 +208,23 @@ export function lessonScreen({ n }) {
       boxes.forEach((b, k) => b.classList.toggle('cur', k === i));
       viewer.set(synthesize(getShape(lang, chars[i]).pose));
       const same = i > 0 && chars[i - 1] === chars[i];
-      let r;
-      do {
-        if (!camera.isOn()) { await sleep(400); r = null; continue; }
-        r = await cam.match(lang, chars[i], { requireRelease: same, releaseFrom: same ? prev?.center : null });
-        if (my !== stepTok || r.cancelled) return false;
-      } while (!r || r.stars < 1);
-      store.recordSign(chars[i], true);
+      const r = await matchWhenReady(my, () => cam.match(lang, chars[i], { ...LEARN, giveUpAfter: 25000, requireRelease: same, releaseFrom: same ? prev?.center : null }));
+      if (!r) return false;
+      store.recordSign(chars[i], r.stars > 0);
       prev = r;
-      boxes[i].classList.remove('cur'); boxes[i].classList.add('ok');
+      boxes[i].classList.remove('cur'); boxes[i].classList.add(r.stars > 0 ? 'ok' : 'miss');
       sayLetter(chars[i], { captionHold: 300 });
-      sfx.star(Math.min(2, r.stars - 1));
+      if (r.stars > 0) sfx.star(Math.min(2, r.stars - 1));
     }
     return true;
+  }
+
+  /** The player copies a whole-word sign: Miko's key handshape (any angle) plus movement. */
+  async function copySign(my, tok) {
+    const custom = signTemplates(tok, lang);
+    if (!custom) return { stars: 1 };
+    viewer.set(null);
+    return matchWhenReady(my, () => cam.match(lang, tok, { ...LEARN, giveUpAfter: 25000, custom }));
   }
 
   async function wordFlow(my, w) {
@@ -236,24 +253,67 @@ export function lessonScreen({ n }) {
       if (my === stepTok) scheduleNext(2);
     } else {
       sayWords(word, { caption: `${word} — ${lang === 'ja' ? w.ja : w.en}` });
-      for (let k = 0; k < 2; k++) { const ok = await avatar.play([tok]); if (!ok || my !== stepTok) return; await sleep(500); }
-      if (my === stepTok) scheduleNext(4);
+      const ok = await avatar.play([tok]);
+      if (!ok || my !== stepTok) return;
+      if (!camera.isOn()) { await avatar.play([tok]); if (my === stepTok) scheduleNext(4); return; }
+      // now the player copies the sign; Miko keeps showing it
+      setCoach(true);
+      await narrate(t('copyMiko'));
+      if (my !== stepTok) return;
+      let looping = true;
+      (async () => { while (looping && my === stepTok) { if (!(await avatar.play([tok]))) break; await sleep(600); } })();
+      const r = await copySign(my, tok);
+      looping = false;
+      if (!r) return;
+      store.recordSign(tok, r.stars > 0);
+      await praise(r, lang === 'ja' ? w.ja : w.en);
+      if (my === stepTok) scheduleNext(2);
     }
   }
 
   async function sentenceFlow(my, s, gloss) {
-    sayWords(s.toks.map((tk) => (tk.startsWith('#') ? tk.slice(1) : (LEXICON[tk]?.mouth || tk))).join(' '), { caption: lang === 'ja' ? s.ja : s.en, captionHold: 2500 });
-    for (let round = 0; round < 2; round++) {
+    const spoken = s.toks.map((tk) => (tk.startsWith('#') ? tk.slice(1) : (LEXICON[tk]?.mouth || tk))).join(' ');
+    sayWords(spoken, { caption: lang === 'ja' ? s.ja : s.en, captionHold: 2500 });
+    const demo = async () => {
       for (let k = 0; k < s.toks.length; k++) {
-        if (my !== stepTok) return;
+        if (my !== stepTok) return false;
         [...gloss.children].forEach((g, j) => g.classList.toggle('on', j === k));
-        const ok = await avatar.play([s.toks[k]]);
-        if (!ok || my !== stepTok) return;
+        if (!(await avatar.play([s.toks[k]]))) return false;
       }
       [...gloss.children].forEach((g) => g.classList.remove('on'));
-      await sleep(700);
+      return true;
+    };
+    if (!(await demo()) || my !== stepTok) return;
+    if (!camera.isOn()) { await sleep(700); if (await demo()) scheduleNext(5); return; }
+    // now the player signs the sentence, one word at a time
+    setCoach(true);
+    await narrate(t('copyMiko'));
+    for (let k = 0; k < s.toks.length; k++) {
+      if (my !== stepTok) return;
+      const tk = s.toks[k];
+      [...gloss.children].forEach((g, j) => { g.classList.toggle('on', j === k); });
+      let ok = true;
+      if (tk.startsWith('#')) {
+        const rowEl = h('div', { class: 'word-row' });
+        extra.prepend(rowEl);
+        handCanvas.classList.remove('hidden'); avatarCanvas.classList.add('hidden');
+        ok = await spellFlow(my, tk.slice(1), rowEl);
+        rowEl.remove();
+        handCanvas.classList.add('hidden'); avatarCanvas.classList.remove('hidden');
+      } else {
+        avatar.play([tk]);
+        const r = await copySign(my, tk);
+        ok = !!r;
+        if (r) { store.recordSign(tk, r.stars > 0); if (r.stars > 0) sfx.star(Math.min(2, r.stars - 1)); }
+      }
+      if (!ok || my !== stepTok) return;
+      gloss.children[k].classList.add('done-tok');
     }
-    if (my === stepTok) scheduleNext(5);
+    [...gloss.children].forEach((g) => g.classList.remove('on'));
+    cam.showBurst(3, lang === 'ja' ? s.ja : s.en);
+    sfx.correct();
+    narrate(t('greatSign'));
+    if (my === stepTok) scheduleNext(3);
   }
 
   function show(i, replay = false) {
@@ -327,9 +387,20 @@ export function lessonScreen({ n }) {
     }
   }
 
+  // Space bar presses Next (handy when the other hand is busy signing)
+  const onKey = (e) => {
+    if (e.code !== 'Space' && e.key !== ' ') return;
+    if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (document.querySelector('.modal-back')) return;
+    e.preventDefault();
+    if (e.repeat) return;
+    const resultNext = el.querySelector('.result .btn.green, .result .btn.yellow');
+    if (resultNext) resultNext.click(); else next();
+  };
+  document.addEventListener('keydown', onKey);
   setTimeout(() => show(0, true), 60);
   return {
     el, usesCamera: true,
-    destroy() { stepTok++; clearTimeout(cdTimer); if (cancelAuto) cancelAuto(); tm.stop(); cam.destroy(); avatar.destroy(); viewer.destroy(); }
+    destroy() { stepTok++; document.removeEventListener('keydown', onKey); clearTimeout(cdTimer); if (cancelAuto) cancelAuto(); tm.stop(); cam.destroy(); avatar.destroy(); viewer.destroy(); }
   };
 }

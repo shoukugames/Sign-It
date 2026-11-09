@@ -253,3 +253,5 @@ button, input, select { font-family: inherit; }
 .coach .chips { display: flex; gap: 6px; margin-top: 6px; }
 .coach .cchip { font-size: 13px; font-weight: 800; padding: 3px 10px; border-radius: 99px; background: rgba(255, 107, 129, 0.18); color: #ffc2cc; }
 .coach .cchip.ok { background: rgba(95, 227, 161, 0.18); color: var(--green); }
+.gloss span.done-tok { background: rgba(95, 227, 161, 0.25); color: var(--green); }
+.kbd-hint { font-size: 13px; font-weight: 800; color: var(--ink3); padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px; }

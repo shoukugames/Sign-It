@@ -7,6 +7,7 @@
 // where the player's own dominant hand appears in the mirrored camera view.
 import { synthesize, drawHand, blendPts, F, SKIN } from './handmodel.js';
 import { ASL, JSL, ASL_WORDSHAPES } from './signs.js';
+import { extract } from './recognizer.js';
 
 const strip = (p) => { const { rot, ...rest } = p; return rest; };
 const thumbAlong = { tip: [-0.2, 0.30, 0.05] };
@@ -155,6 +156,35 @@ function handPts(lang, h) {
     ptsCache.set(key, synthesize(p));
   }
   return ptsCache.get(key);
+}
+
+function poseFor(lang, h) {
+  let pose = POSES[h.s];
+  if (!pose) {
+    const set = lang === 'ja' ? JSL : ASL;
+    const sh = set[h.s] || ASL_WORDSHAPES[h.s];
+    pose = sh ? strip(sh.pose) : POSES.flat;
+  }
+  return h.rot ? { ...pose, rot: h.rot } : pose;
+}
+
+/**
+ * What the camera checks for a whole-word sign: the key handshapes of Miko's
+ * dominant hand (any of them, at any angle) and whether the sign moves.
+ */
+export function signTemplates(tok, lang) {
+  const lex = LEXICON[tok];
+  if (!lex) return null;
+  const shapes = new Map(), places = [];
+  for (const fr of lex.frames) {
+    if (!fr.r) continue;
+    shapes.set(fr.r.s + JSON.stringify(fr.r.rot || {}), fr.r);
+    places.push(fr.r.at);
+  }
+  const list = [...shapes.values()].slice(0, 4);
+  let travel = 0;
+  for (const a of places) for (const b of places) travel = Math.max(travel, Math.hypot(a[0] - b[0], a[1] - b[1]));
+  return { templates: list.map((hd) => extract(synthesize(poseFor(lang, hd)))), needMove: travel > 0.12 || list.length > 1 };
 }
 
 /** Build a frame list from tokens: lexicon keys or '#WORD' (fingerspelling). */

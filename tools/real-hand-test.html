@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+  Real-photo recognizer test. Runs the real MediaPipe hand tracker on photos
+  in tools/testdata/ (named <anything>_<LETTER>.jpg, signed with the RIGHT hand
+  in an unmirrored photo, like a webcam frame) through the game's own camera
+  pipeline, and prints the handedness label, the letter scores and the ranks.
+  Serve the repo root (python3 -m http.server) and open /tools/real-hand-test.html
+-->
+<html><head><meta charset="utf-8"><title>Real hand test</title></head>
+<body style="font:14px monospace;background:#111;color:#eee"><pre id="out">running…</pre>
+<script type="module">
+import { FilesetResolver, HandLandmarker } from '../src/renderer/vendor/mediapipe/vision_bundle.mjs';
+import { handFromResult } from '../src/renderer/js/camera.js';
+import { scoreSign, stars, guide, template, similarity } from '../src/renderer/js/recognizer.js';
+
+const out = document.getElementById('out');
+const files = (new URLSearchParams(location.search).get('files') || 'tsl_A,tsl_B,tsl_C,tsl_D,tsl_E,tsl_F').split(',');
+const fileset = await FilesetResolver.forVisionTasks(new URL('../src/renderer/vendor/mediapipe/wasm', import.meta.url).href);
+const lm = await HandLandmarker.createFromOptions(fileset, {
+  baseOptions: { modelAssetPath: new URL('../src/renderer/vendor/mediapipe/hand_landmarker.task', import.meta.url).href, delegate: 'CPU' },
+  runningMode: 'IMAGE', numHands: 2, minHandDetectionConfidence: 0.3, minHandPresenceConfidence: 0.3
+});
+const rows = [], results = [];
+for (const f of files) {
+  const img = new Image();
+  img.src = `testdata/${f}.jpg`;
+  await img.decode();
+  const res = lm.detect(img);
+  const want = f.split('_').pop().toUpperCase();
+  if (!res.landmarks.length) { rows.push(`${f}: NO HAND`); results.push({ f, want, found: false }); continue; }
+  const hand = handFromResult(res, 0, null);
+  const r = scoreSign(hand.features, 'en', want);
+  const g = guide(hand.features, template('en', want));
+  results.push({ f, want, found: true, label: hand.label, conf: +hand.conf.toFixed(2), flipX: hand.flipX, score: +r.score.toFixed(2), raw: +r.raw.toFixed(2), rank: r.rank, stars: stars(r.score, 'medium', r.rank), easyStars: stars(r.score, 'easy', r.rank), best: r.confusedWith, tip: g.tips[0] ? g.tips[0].key + (g.tips[0].f ? '(' + g.tips[0].f + ')' : '') : '-', nz: +hand.features.nz.toFixed(2), parts: Object.fromEntries(Object.entries(similarity(hand.features, template('en', want), true).parts).map(([k, v]) => [k, +v.toFixed(1)])), feat: Object.fromEntries(Object.entries(hand.features).map(([k, v]) => [k, +v.toFixed(2)])), model: hand.model.map((q) => q.map((v) => +v.toFixed(5))), img: res.landmarks[0].map((q) => [+q.x.toFixed(4), +q.y.toFixed(4)]) });
+  rows.push(JSON.stringify(results[results.length - 1]));
+}
+out.textContent = rows.join('\n');
+window.__results = results;
+document.title = 'done';
+</script></body></html>

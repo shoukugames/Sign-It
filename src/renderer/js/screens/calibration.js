@@ -67,6 +67,8 @@ export function calibrationScreen() {
     actions.innerHTML = '';
     actions.append(btn(t('back'), () => stepIntro(), 'ghost small'));
     const frames = [];
+    let goodMs = 0, lastT = 0;
+    const NEED_MS = 1500, NEED_N = 6; // time-based, so slow computers calibrate just as easily
     let lastSfx = 0;
     if (unsub) unsub();
     unsub = camera.subscribe((f) => {
@@ -75,16 +77,19 @@ export function calibrationScreen() {
       if (!p) { status.textContent = '✋ ' + t('showHand'); return; }
       if (p.palmImg < 0.09) { status.textContent = '🔍 ' + t('calibCloser'); return; }
       if (p.palmImg > 0.42) { status.textContent = '↔ ' + t('calibFarther'); return; }
-      if (p.conf < 0.6) { status.textContent = '💡 ' + t('calibLight'); return; }
+      if (p.conf < 0.5) { status.textContent = '💡 ' + t('calibLight'); return; }
       const raw = extract(p.model);
       const flex = ['index', 'middle', 'ring', 'pinky'].reduce((a, k) => a + raw[k + 'M'] + raw[k + 'P'], 0) / 8;
       const okPose = which === 'open' ? flex < 0.35 : flex > 0.45;
-      if (!okPose) { status.textContent = '✋ ' + text; frames.length = Math.max(0, frames.length - 2); cam.ring(frames.length / 36); return; }
+      const now = performance.now(), dt = lastT ? Math.min(1000, now - lastT) : 0;
+      lastT = now;
+      if (!okPose) { status.textContent = '✋ ' + text; goodMs = Math.max(0, goodMs - dt * 0.5); cam.ring(goodMs / NEED_MS); return; }
+      goodMs += dt;
       frames.push({ model: p.model, label: p.label, flipX: p.flipX });
-      cam.ring(frames.length / 36);
+      cam.ring(goodMs / NEED_MS);
       status.textContent = t('holdStill');
       if (performance.now() - lastSfx > 250) { sfx.hold(); lastSfx = performance.now(); }
-      if (frames.length >= 36) {
+      if (goodMs >= NEED_MS && frames.length >= NEED_N) {
         unsub(); unsub = null;
         sfx.correct();
         if (which === 'open') { openFrames = frames.slice(); stepCapture('fist'); } else { fistFrames = frames.slice(); computeAndTest(); }
@@ -145,11 +150,18 @@ export function calibrationScreen() {
     toast('✔ ' + t('calibReady'));
   }
 
+  const onKey = (e) => {
+    if ((e.code !== 'Space' && e.key !== ' ') || (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) || document.querySelector('.modal-back')) return;
+    const fin = el.querySelector('[data-finish]');
+    if (fin) { e.preventDefault(); fin.click(); }
+  };
+  document.addEventListener('keydown', onKey);
   setTimeout(stepIntro, 60);
   return {
     el, usesCamera: true,
     destroy() {
       alive = false;
+      document.removeEventListener('keydown', onKey);
       if (unsub) unsub();
       if (!saved && !store.s.calibration && previous) store.setCalibration(previous); // cancelled: keep the old one
       cancelAnimationFrame(raf); cam.destroy();

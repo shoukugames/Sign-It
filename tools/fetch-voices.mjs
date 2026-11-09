@@ -22,7 +22,7 @@ const { LEXICON } = await import(R('avatar.js'));
 const { voiceWords } = await import(R('voicekeys.js'));
 
 const API = 'https://commons.wikimedia.org/w/api.php';
-const UA = 'SignItVoiceFetcher/0.1.3 (https://shoukugames.org/; educational game)';
+const UA = 'SignItVoiceFetcher/0.1.4 (https://shoukugames.org/; educational game)';
 const VOICE = path.join(root, 'assets', 'voice');
 const TMP = fs.mkdtempSync(path.join(process.env.TMPDIR || '/tmp', 'signit-voice-'));
 const PREFERRED_JA = ['Fukujinzuke', 'Higa4'];
