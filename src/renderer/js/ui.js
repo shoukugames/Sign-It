@@ -115,7 +115,7 @@ export function privacyNotice() {
       h('h3', {}, t('privacyTitle')),
       li('🌐🚫', t('privacyBody1')),
       li('💻', t('privacyBody2')),
-      li('⏻', t('privacyBody3')),
+      li('📴', t('privacyBody3')),
       h('div', { class: 'row' }, btn(t('privacyOk'), () => { close(); resolve(); }, 'green')));
     narrateAll([t('privacyBody1'), t('privacyBody2'), t('privacyBody3')]);
   }));

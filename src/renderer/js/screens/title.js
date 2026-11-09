@@ -59,7 +59,7 @@ export function titleScreen() {
       btn('✋ ' + t('calibrate'), () => go('calibrate'), 'green'),
       btn('👪 ' + t('parents'), () => go('parents'), 'yellow'),
       btn('🏅 ' + t('credits'), () => go('credits'), 'ghost'),
-      window.signItHost ? btn('⏻ ' + t('quit'), () => window.signItHost.quit(), 'ghost') : null),
+      window.signItHost ? btn('🚪 ' + t('quit'), () => window.signItHost.quit(), 'ghost') : null),
     h('div', { class: 'title-foot' }, `v${VERSION} · © 2026 Shawn Rapaz & Claude Code · GPL-3.0 · shoukugames.org`)
   );
   return { el };

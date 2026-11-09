@@ -50,6 +50,11 @@ function createWindow() {
 
   // Developer hook: SIGNIT_SCREENSHOT=out.png [SIGNIT_JS="..."] captures the window and exits.
   if (process.env.SIGNIT_SCREENSHOT) {
+    if (process.env.SIGNIT_SIZE) { // e.g. 1280x720 for store / website screenshots
+      const [w, h] = process.env.SIGNIT_SIZE.split('x').map(Number);
+      win.setMinimumSize(320, 240);
+      win.setContentSize(w, h);
+    }
     win.webContents.once('did-finish-load', async () => {
       await new Promise((r) => setTimeout(r, 2500));
       if (process.env.SIGNIT_JS) {
