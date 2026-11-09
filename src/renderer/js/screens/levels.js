@@ -7,10 +7,12 @@ import { h, btn, toast, starsEl } from '../ui.js';
 import { t } from '../i18n.js';
 import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say, sayLetter, sayWords, canSayWords } from '../audio.js';
+import { sfx, narrate, sayLetter, sayWords, canSayWords } from '../audio.js';
 import { level } from '../curriculum.js';
 import { getShape } from '../signs.js';
-import { synthesize, drawHand, SKIN, VIEW34 } from '../handmodel.js';
+import { synthesize } from '../handmodel.js';
+import { HandViewer } from '../handviewer.js';
+import { autoContinue } from '../ui.js';
 import { techniqueScore, DIFFICULTY } from '../recognizer.js';
 import { CameraPanel } from '../practice.js';
 import * as camera from '../camera.js';
@@ -76,36 +78,19 @@ export function levelScreen({ n }) {
     h('div', { class: 'topbar' }, btn('←', () => go('levels'), 'ghost icon-btn'), h('h2', {}, t('levelN', { n }), h('span', { class: 'sub' }, typeName))),
     split);
 
-  // ---- hint hand ----
-  let hintPts = null, hintRaf = 0, hintLetter = null;
-  const drawHint = () => {
-    const c = hintC, W = c.clientWidth, H = c.clientHeight, dpr = window.devicePixelRatio || 1;
-    if (W && H) {
-      if (c.width !== Math.round(W * dpr) || c.height !== Math.round(H * dpr)) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
-      const x = c.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, W, H);
-      if (hintPts) drawHand(x, hintPts, { cx: W / 2, cy: H / 2, scale: Math.min(W, H) * 0.7, skin: SKIN[store.settings.skin], view: { y: VIEW34.y + Math.sin(performance.now() / 1100) * 8, x: VIEW34.x } });
-      else if (hintLetter) { // the hint hand is still hidden: show the letter itself, gently pulsing
-        const k = 1 + Math.sin(performance.now() / 500) * 0.03;
-        x.font = `800 ${Math.round(Math.min(W, H) * 0.5 * k)}px 'M PLUS Rounded 1c', sans-serif`;
-        x.textAlign = 'center'; x.textBaseline = 'middle';
-        x.fillStyle = 'rgba(110,242,255,0.18)'; x.fillText(hintLetter, W / 2, H / 2 + 6);
-        x.fillStyle = 'rgba(255,255,255,0.85)'; x.fillText(hintLetter, W / 2, H / 2);
-      }
-    }
-    hintRaf = requestAnimationFrame(drawHint);
-  };
-  hintRaf = requestAnimationFrame(drawHint);
+  // ---- hint hand: an interactive 3D hand the player can turn with the mouse ----
+  const viewer = new HandViewer(hintC);
   let hintTimer = 0;
   function setHint(key, delayMs) {
     clearTimeout(hintTimer);
-    hintPts = null;
-    hintLetter = key == null || lv.type === 1 || lv.type === 3 ? null : key === 'ILY' ? '🤟' : key;
+    viewer.set(null);
+    viewer.letter = key == null || lv.type === 1 || lv.type === 3 ? null : key === 'ILY' ? '🤟' : key;
     if (key == null) return;
-    const showIt = () => { hintPts = synthesize(getShape(lang, key).pose); };
+    const showIt = () => { viewer.set(synthesize(getShape(lang, key).pose)); };
     if (delayMs === 0) showIt(); else if (delayMs > 0) hintTimer = setTimeout(showIt, delayMs);
   }
 
-  let alive = true, practiceNext = null, currentItem = null;
+  let alive = true, practiceNext = null, currentItem = null, cancelAuto = null;
   async function speakCurrent() {
     if (!currentItem) return;
     // spoken by a human voice; the caption is hidden in listening levels so the player must listen
@@ -134,6 +119,8 @@ export function levelScreen({ n }) {
 
   async function run() {
     await new Promise((r) => setTimeout(r, 300));
+    await narrate(t('levelDesc' + lv.type));
+    if (!alive) return;
     const itemStars = [], accAll = [], techAll = [];
     for (let ii = 0; ii < lv.items.length && alive; ii++) {
       const item = lv.items[ii];
@@ -202,13 +189,14 @@ export function levelScreen({ n }) {
   }
 
   function finish(itemStars, accAll, techAll) {
+    const autoBox = h('div', { class: 'auto-box' });
     setHint(null);
     const avg = (a) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
     const st = practiceOnly ? 0 : Math.round(avg(itemStars));
     if (!practiceOnly) store.recordLevel(n, st);
     sfx.fanfare(practiceOnly ? 2 : st);
     const msg = practiceOnly ? t('wellDone') : st ? (st === 3 ? t('perfect') : t('levelComplete')) : t('levelFailed');
-    say(st ? 'level_complete' : 'level_failed', msg);
+    narrate(msg);
     split.replaceWith(h('div', { class: 'result' },
       practiceOnly ? h('div', { style: { fontSize: '80px' } }, '🙌') : h('div', { class: 'stars-big' }, ...[0, 1, 2].map((i) => h('span', { class: 'star' + (i < st ? ' on' : '') }, '★'))),
       h('h2', {}, msg),
@@ -219,13 +207,16 @@ export function levelScreen({ n }) {
       h('div', { style: { display: 'flex', gap: '14px' } },
         btn('↻ ' + t('retry'), () => go('level', { n }), 'ghost'),
         n < 20 && levelUnlocked(n + 1) ? btn(t('levelN', { n: n + 1 }) + ' ▶', () => go('level', { n: n + 1 }), 'green') : null,
-        btn(t('levels'), () => go('levels'), 'pink'))));
+        btn(t('levels'), () => go('levels'), 'pink')),
+      autoBox));
+    // hands-free: go on to the next level automatically after a win
+    if (st && n < 20 && levelUnlocked(n + 1) && store.settings.autoAdvance !== false) cancelAuto = autoContinue(autoBox, () => go('level', { n: n + 1 }));
     if (st && n < 20 && (store.lang().levels[n]?.attempts === 1 || st)) sfx.unlock();
   }
 
   run();
   return {
     el, usesCamera: true,
-    destroy() { alive = false; tm.stop(); clearTimeout(hintTimer); cancelAnimationFrame(hintRaf); cam.destroy(); }
+    destroy() { alive = false; if (cancelAuto) cancelAuto(); tm.stop(); clearTimeout(hintTimer); viewer.destroy(); cam.destroy(); }
   };
 }

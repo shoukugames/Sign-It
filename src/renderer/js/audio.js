@@ -6,7 +6,7 @@
 //   If a recording is missing, the line is shown as a caption. A synthetic
 //   device voice is used only if a parent explicitly enables it in For Parents.
 import { store } from './storage.js';
-import { letterKey, wordKeys } from './voicekeys.js';
+import { letterKey, wordKeys, narrationKey } from './voicekeys.js';
 
 let ctx = null, master = null, verb = null, dry = null;
 
@@ -139,9 +139,9 @@ async function probeFile(lang, key) {
   await manifestReady;
   let exts = ['mp3', 'ogg', 'wav'];
   if (manifest) {
+    // listed files load directly; unlisted ones are still probed once (a stale manifest must never silence the game)
     const ext = manifest[lang]?.get(key);
-    if (!ext) return null;
-    exts = [ext];
+    exts = ext ? [ext] : ['ogg', 'mp3', 'wav'];
   }
   return new Promise((resolve) => {
     if (missing.has(lang + key)) return resolve(null);
@@ -174,11 +174,15 @@ function bestDeviceVoice(lang) {
  * false if only a caption was shown.
  */
 let seq = 0; // bumps on stopVoice() to cancel a playing sequence
+let speaking = false;
+let currentRes = null; // resolves the clip that is playing if it gets interrupted
+export function isSpeaking() { return speaking; }
 
 function playClip(a, my) {
   return new Promise((res) => {
     if (my !== seq) return res(false);
     current = a;
+    currentRes = res;
     a.currentTime = 0;
     a.volume = store.settings.voice;
     a.onended = () => res(true);
@@ -202,27 +206,49 @@ export async function say(keys, text, opts = {}) {
   const clips = await Promise.all(list.map((k) => tryFile(lang, k)));
   if (my !== seq) return false;
   if (clips.length && clips.every(Boolean)) {
+    speaking = true;
     for (let i = 0; i < clips.length; i++) {
       if (!(await playClip(clips[i], my))) break;
       if (i < clips.length - 1) await new Promise((r) => setTimeout(r, 140));
     }
-    if (my === seq) setTimeout(() => { if (my === seq) captionCb(caption, false); }, opts.captionHold || 900);
+    if (my === seq) { speaking = false; setTimeout(() => { if (my === seq) captionCb(caption, false); }, opts.captionHold || 900); }
     return true;
   }
-  if (store.settings.deviceVoice && window.speechSynthesis) {
+  if ((opts.allowDevice || store.settings.deviceVoice) && window.speechSynthesis && bestDeviceVoice(lang)) {
+    speaking = true;
     const u = new SpeechSynthesisUtterance(text);
     const v = bestDeviceVoice(lang);
     if (v) u.voice = v;
     u.lang = lang === 'ja' ? 'ja-JP' : 'en-US';
     u.rate = 0.92; u.pitch = 1.05; u.volume = store.settings.voice;
     return new Promise((res) => {
-      u.onend = () => { captionCb(caption, false); res(true); };
-      u.onerror = () => res(false);
+      u.onend = () => { speaking = false; captionCb(caption, false); res(true); };
+      u.onerror = () => { speaking = false; res(false); };
       speechSynthesis.speak(u);
     });
   }
   setTimeout(() => { if (my === seq) captionCb(caption, false); }, Math.max(1800, caption.length * 90));
   return false;
+}
+
+/**
+ * Speak an instruction / narration sentence. English uses the bundled offline
+ * neural-voice clip for this exact text; Japanese uses the computer's own
+ * Japanese voice when one is installed. Otherwise the caption is shown.
+ */
+export function narrate(text, opts = {}) {
+  const lang = opts.lang || store.settings.lang;
+  return say(narrationKey(text), text, { allowDevice: lang === 'ja', ...opts, lang });
+}
+/** Several narration sentences back-to-back. */
+export function narrateAll(texts, opts = {}) {
+  const lang = opts.lang || store.settings.lang;
+  return say(texts.map(narrationKey), texts.join(' '), { allowDevice: lang === 'ja', captionHold: 2500, ...opts, lang });
+}
+/** Letter name (human) followed by its how-to description (narration). */
+export function sayLetterHowTo(letter, desc, opts = {}) {
+  const lang = opts.lang || store.settings.lang;
+  return say([letterKey(letter), narrationKey(desc)], `${letter}. ${desc}`, { allowDevice: lang === 'ja', captionHold: 2500, ...opts, lang });
 }
 
 /** Speak a letter / kana name with a human voice. */
@@ -250,6 +276,8 @@ export async function canSpeak(key, lang) {
 
 export function stopVoice() {
   seq++;
+  speaking = false;
+  if (currentRes) { const r = currentRes; currentRes = null; r(false); }
   if (current) { try { current.pause(); } catch (_) { /* ignore */ } current = null; }
   if (window.speechSynthesis) speechSynthesis.cancel();
 }

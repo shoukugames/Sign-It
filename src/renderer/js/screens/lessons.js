@@ -1,13 +1,14 @@
 // Sign It — lesson list and lesson player.
-import { h, btn, toast } from '../ui.js';
+import { h, btn, toast, autoContinue } from '../ui.js';
 import { t } from '../i18n.js';
 import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say, sayLetter, sayWords } from '../audio.js';
+import { sfx, narrate, sayLetter, sayWords, sayLetterHowTo, isSpeaking } from '../audio.js';
 import { lessons, PASS_PCT } from '../curriculum.js';
 import { Avatar, LEXICON } from '../avatar.js';
 import { getShape } from '../signs.js';
-import { synthesize, drawHand, SKIN, VIEW34 } from '../handmodel.js';
+import { synthesize } from '../handmodel.js';
+import { HandViewer } from '../handviewer.js';
 import { CameraPanel } from '../practice.js';
 import * as camera from '../camera.js';
 
@@ -58,6 +59,11 @@ export function lessonsScreen() {
 }
 
 // ---------------------------------------------------------------------------
+// Lesson player. Hands-free: with "Auto next" on, a correct sign (or the end of
+// a demo) moves to the next part automatically, so the player never has to
+// reach for the keyboard while signing. A coach tells the player exactly which
+// finger, thumb or palm direction to fix, highlights it on the 3D hand and
+// says it out loud.
 export function lessonScreen({ n }) {
   const lang = store.settings.lang;
   const J = lang === 'ja' ? 1 : 0;
@@ -65,69 +71,198 @@ export function lessonScreen({ n }) {
   const tm = timer('lessons', 'lesson', n);
   store.lesson(n).attempts++;
 
-  // step list
   const steps = [
     ...ls.letters.map((k) => ({ kind: 'letter', key: k })),
     ...ls.words.map((w) => ({ kind: 'word', w })),
     { kind: 'sentence', s: ls.sentence }
   ];
   let idx = 0;
+  let stepTok = 0;          // bumps whenever the step changes → cancels running flows
+  let cancelAuto = null;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const auto = () => store.settings.autoAdvance !== false;
 
+  // ---- layout ----
   const stepsBar = h('div', { class: 'steps' }, ...steps.map(() => h('i')));
   const partLbl = h('span', { class: 'sub' });
-  const left = h('div', { class: 'panel' });
   const avatarCanvas = h('canvas', { class: 'fill' });
   const handCanvas = h('canvas', { class: 'fill' });
-  const stage = h('div', { class: 'panel-body', style: { minHeight: '260px' } }, avatarCanvas, handCanvas);
+  const stage = h('div', { class: 'panel-body', style: { minHeight: '240px' } }, avatarCanvas, handCanvas);
   const info = h('div', { class: 'lesson-info' });
   const extra = h('div', {});
+  const coachTip = h('div', { class: 'coach-tip' });
+  const chip = (label) => h('span', { class: 'cchip' }, label);
+  const chips = { fingers: chip(t('fingersOk')), thumb: chip(t('thumbOk')), palm: chip(t('palmOk')) };
+  const coach = h('div', { class: 'coach hidden' }, h('div', { class: 'coach-title' }, '🧑‍🏫 ' + t('guideTitle')), coachTip, h('div', { class: 'chips' }, chips.palm, chips.fingers, chips.thumb));
   const prevB = btn('◀ ' + t('prev'), () => show(idx - 1), 'ghost small');
   const againB = btn('↻ ' + t('watchAgain'), () => show(idx, true), 'ghost small');
   const nextB = btn(t('next') + ' ▶', () => next(), 'green');
-  left.append(h('div', { class: 'panel-head' }, '🎓 ', t('lessonN', { n }), ' · ', ls.title[J], h('span', { class: 'tag' }, t('mirrorNote'))), stage, info, extra,
+  const left = h('div', { class: 'panel' },
+    h('div', { class: 'panel-head' }, '🎓 ', t('lessonN', { n }), ' · ', ls.title[J], h('span', { class: 'tag' }, t('mirrorNote'))),
+    stage, info, coach, extra,
     h('div', { class: 'panel-foot' }, prevB, againB, h('div', { style: { flex: 1 } }), nextB));
-
   const cam = new CameraPanel({ title: t('tryWithCamera') });
   const avatar = new Avatar(avatarCanvas, { lang, skin: store.settings.skin });
-  let handRaf = 0, handPts = null;
-  const drawBigHand = () => {
-    const c = handCanvas, W = c.clientWidth, H = c.clientHeight, dpr = window.devicePixelRatio || 1;
-    if (W && H) {
-      if (c.width !== Math.round(W * dpr) || c.height !== Math.round(H * dpr)) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
-      const x = c.getContext('2d');
-      x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, W, H);
-      if (handPts) {
-        const sway = Math.sin(performance.now() / 1100) * 10;
-        drawHand(x, handPts, { cx: W / 2, cy: H / 2, scale: Math.min(W, H) * 0.78, skin: SKIN[store.settings.skin], view: { y: VIEW34.y + sway, x: VIEW34.x } });
-      }
-    }
-    handRaf = requestAnimationFrame(drawBigHand);
-  };
-  handRaf = requestAnimationFrame(drawBigHand);
+  const viewer = new HandViewer(handCanvas, { scale: 0.74 });
 
+  const autoSw = h('div', { class: 'switch' + (auto() ? ' on' : ''), role: 'switch' });
+  autoSw.addEventListener('click', () => {
+    store.set('autoAdvance', !auto());
+    autoSw.classList.toggle('on', auto());
+    sfx.toggle(auto());
+    if (!auto()) clearCountdown();
+  });
   const split = h('div', { class: 'split' }, left, cam.el);
   const el = h('div', { class: 'screen' },
-    h('div', { class: 'topbar' }, btn('←', () => go('lessons'), 'ghost icon-btn'), h('h2', {}, ls.title[J], partLbl), stepsBar),
+    h('div', { class: 'topbar' }, btn('←', () => go('lessons'), 'ghost icon-btn'), h('h2', {}, ls.title[J], partLbl),
+      h('label', { class: 'auto-toggle' }, autoSw, t('autoAdvance')), stepsBar),
     split);
 
-  let practiceToken = 0;
-  async function practice(key) {
-    const my = ++practiceToken;
-    while (my === practiceToken) {
-      if (!camera.isOn()) { await new Promise((r) => setTimeout(r, 400)); continue; }
+  // ---- countdown to the next step (hands-free) ----
+  let cdTimer = 0;
+  function clearCountdown() { clearTimeout(cdTimer); nextB.textContent = idx === steps.length - 1 ? '✓ ' + t('done') : t('next') + ' ▶'; }
+  function scheduleNext(secs) {
+    if (!auto()) { nextB.classList.add('pulse'); return; }
+    const my = stepTok;
+    let left = secs;
+    const tick = () => {
+      if (my !== stepTok || !auto()) return;
+      if (left <= 0) { next(); return; }
+      nextB.textContent = t('nextIn', { s: left });
+      left--;
+      cdTimer = setTimeout(tick, 1000);
+    };
+    tick();
+  }
+
+  // ---- coach ----
+  let coachOn = false, lastTipId = '', tipSince = 0, lastSpoken = 0, lastNoHand = 0;
+  cam.onGuide = (g) => {
+    if (!coachOn) return;
+    coachTip.textContent = g.text || '';
+    coach.querySelector('.chips').classList.remove('hidden');
+    coachTip.classList.toggle('ok', !g.tip && !g.noHand);
+    for (const k of ['fingers', 'thumb', 'palm']) chips[k].classList.toggle('ok', !!(g.status && g.status[k]));
+    viewer.highlight = g.tip && g.tip.finger ? [g.tip.finger] : [];
+    // say the tip out loud when it stays the same for a moment (not every frame)
+    const now = performance.now();
+    const id = g.noHand ? 'nohand' : g.tip ? g.tip.key + (g.tip.f || '') : '';
+    if (id !== lastTipId) { lastTipId = id; tipSince = now; }
+    if (isSpeaking() || !id) return;
+    if (g.noHand) { if (now - tipSince > 2500 && now - lastNoHand > 9000) { lastNoHand = now; narrate(g.text); } return; }
+    if (now - tipSince > 1300 && now - lastSpoken > 5000) { lastSpoken = now; narrate(g.text); }
+  };
+  function setCoach(on) {
+    coachOn = on;
+    coach.classList.toggle('hidden', !on);
+    coachTip.textContent = camera.isOn() ? t('practiceHint') : t('cameraNeeded');
+    coach.querySelector('.chips').classList.toggle('hidden', !camera.isOn());
+    viewer.highlight = [];
+    lastTipId = ''; lastSpoken = performance.now();
+  }
+
+  // ---- step flows ----
+  async function letterFlow(my, key) {
+    const sh = getShape(lang, key);
+    await sayLetterHowTo(key, sh[lang === 'ja' ? 'ja' : 'en']);
+    if (my !== stepTok) return;
+    if (!camera.isOn()) { scheduleNext(10); return; }
+    while (my === stepTok) {
+      if (!camera.isOn()) { await sleep(400); continue; }
       const r = await cam.match(lang, key, {});
-      if (my !== practiceToken || r.cancelled) return;
+      if (my !== stepTok || r.cancelled) return;
       store.recordSign(key, r.stars > 0);
-      cam.showBurst(r.stars, key);
-      if (r.stars >= 2) { sfx.correct(); nextB.classList.add('pulse'); }
-      await new Promise((res) => setTimeout(res, 1600));
+      if (r.stars >= 1) {
+        cam.showBurst(r.stars, key);
+        sfx.correct();
+        viewer.highlight = [];
+        coachTip.textContent = '🎉 ' + t('greatSign');
+        coachTip.classList.add('ok');
+        narrate(t('greatSign'));
+        scheduleNext(2);
+        return;
+      }
     }
+  }
+
+  async function spellFlow(my, word, rowEl) {
+    const chars = Array.from(word);
+    const boxes = chars.map((c) => h('div', { class: 'ltr' }, c));
+    rowEl.innerHTML = ''; boxes.forEach((b) => rowEl.append(b));
+    let prev = null;
+    for (let i = 0; i < chars.length; i++) {
+      if (my !== stepTok) return false;
+      boxes.forEach((b, k) => b.classList.toggle('cur', k === i));
+      viewer.set(synthesize(getShape(lang, chars[i]).pose));
+      const same = i > 0 && chars[i - 1] === chars[i];
+      let r;
+      do {
+        if (!camera.isOn()) { await sleep(400); r = null; continue; }
+        r = await cam.match(lang, chars[i], { requireRelease: same, releaseFrom: same ? prev?.center : null });
+        if (my !== stepTok || r.cancelled) return false;
+      } while (!r || r.stars < 1);
+      store.recordSign(chars[i], true);
+      prev = r;
+      boxes[i].classList.remove('cur'); boxes[i].classList.add('ok');
+      sayLetter(chars[i], { captionHold: 300 });
+      sfx.star(Math.min(2, r.stars - 1));
+    }
+    return true;
+  }
+
+  async function wordFlow(my, w) {
+    const tok = w.tok, spelled = tok.startsWith('#');
+    const word = spelled ? tok.slice(1) : (LEXICON[tok]?.mouth || tok);
+    if (spelled) {
+      avatar.onLetter = (ch) => sayLetter(ch, { captionHold: 300 });
+      const ok = await avatar.play([tok]);
+      avatar.onLetter = null;
+      if (!ok || my !== stepTok) return;
+      await sayWords(word);
+      if (my !== stepTok) return;
+      if (!camera.isOn()) { await avatar.play([tok]); if (my === stepTok) scheduleNext(4); return; }
+      // the player now fingerspells the word with the camera, letter by letter
+      const rowEl = h('div', { class: 'word-row' });
+      extra.prepend(rowEl);
+      handCanvas.classList.remove('hidden'); avatarCanvas.classList.add('hidden');
+      setCoach(true);
+      await narrate(t('signTheWord'));
+      if (my !== stepTok) return;
+      const done = await spellFlow(my, word, rowEl);
+      if (!done || my !== stepTok) return;
+      cam.showBurst(3, word);
+      sfx.correct();
+      await sayWords(word);
+      if (my === stepTok) scheduleNext(2);
+    } else {
+      sayWords(word, { caption: `${word} — ${lang === 'ja' ? w.ja : w.en}` });
+      for (let k = 0; k < 2; k++) { const ok = await avatar.play([tok]); if (!ok || my !== stepTok) return; await sleep(500); }
+      if (my === stepTok) scheduleNext(4);
+    }
+  }
+
+  async function sentenceFlow(my, s, gloss) {
+    sayWords(s.toks.map((tk) => (tk.startsWith('#') ? tk.slice(1) : (LEXICON[tk]?.mouth || tk))).join(' '), { caption: lang === 'ja' ? s.ja : s.en, captionHold: 2500 });
+    for (let round = 0; round < 2; round++) {
+      for (let k = 0; k < s.toks.length; k++) {
+        if (my !== stepTok) return;
+        [...gloss.children].forEach((g, j) => g.classList.toggle('on', j === k));
+        const ok = await avatar.play([s.toks[k]]);
+        if (!ok || my !== stepTok) return;
+      }
+      [...gloss.children].forEach((g) => g.classList.remove('on'));
+      await sleep(700);
+    }
+    if (my === stepTok) scheduleNext(5);
   }
 
   function show(i, replay = false) {
     if (i < 0 || i >= steps.length) return;
     idx = i;
-    practiceToken++; cam.cancel(); cam.freeTarget = null; avatar.onLetter = null; nextB.classList.remove('pulse');
+    const my = ++stepTok;
+    clearCountdown();
+    cam.cancel(); avatar.onLetter = null; nextB.classList.remove('pulse');
+    setCoach(false);
     [...stepsBar.children].forEach((d, k) => (d.className = k < i ? 'done' : k === i ? 'on' : ''));
     prevB.disabled = i === 0;
     const st = steps[i];
@@ -135,16 +270,14 @@ export function lessonScreen({ n }) {
     if (st.kind === 'letter') {
       partLbl.textContent = t('partLetters');
       const sh = getShape(lang, st.key);
-      handPts = synthesize(sh.pose);
+      viewer.set(synthesize(sh.pose));
       handCanvas.classList.remove('hidden'); avatarCanvas.classList.add('hidden');
       info.append(h('h3', {}, h('span', { style: { fontSize: '44px', marginRight: '12px', color: 'var(--cyan)' } }, st.key), t('letters')), h('p', {}, sh[lang === 'ja' ? 'ja' : 'en']));
       if (sh.motion) info.append(h('p', { style: { color: 'var(--yellow)' } }, '↯ ' + (lang === 'ja' ? '動きのある文字です' : 'This letter moves!')));
-      // human voice says the letter; the how-to is shown as a caption
-      sayLetter(st.key, { caption: `${st.key}. ${sh[lang === 'ja' ? 'ja' : 'en']}`, captionHold: 4500 });
-      cam.fb.innerHTML = `<div>${t('practiceHint')}</div>`;
-      practice(st.key);
+      setCoach(true);
+      letterFlow(my, st.key);
     } else {
-      handPts = null;
+      viewer.set(null);
       handCanvas.classList.add('hidden'); avatarCanvas.classList.remove('hidden');
       if (st.kind === 'word') {
         partLbl.textContent = t('partWords');
@@ -153,66 +286,50 @@ export function lessonScreen({ n }) {
         info.append(h('h3', {}, spelled ? word : (lang === 'ja' ? st.w.ja : st.w.en.toUpperCase())),
           h('p', {}, `${spelled ? '🔤 ' + t('fingerspelled') : '🤟 ' + t('sign')} · ${t('meaning')}: ${lang === 'ja' ? st.w.ja : st.w.en}`));
         extra.append(h('div', { class: 'mouth-tip' }, '👄 ' + t('mouthIt', { w: spelled ? word.toLowerCase() : word })));
-        if (spelled) {
-          // say each letter as Miko fingerspells it, then the whole word
-          avatar.onLetter = (ch) => sayLetter(ch, { captionHold: 300 });
-          avatar.play([tok]).then((ok) => { avatar.onLetter = null; if (ok) sayWords(word); });
-        } else {
-          avatar.onLetter = null;
-          avatar.play([tok]);
-          sayWords(word, { caption: `${word} — ${lang === 'ja' ? st.w.ja : st.w.en}` });
-        }
+        wordFlow(my, st.w);
       } else {
         partLbl.textContent = t('partSentence');
         const s = st.s;
         const gloss = h('div', { class: 'gloss' }, ...s.toks.map((tk) => h('span', {}, tk.startsWith('#') ? tk.slice(1).split('').join('-') : (LEXICON[tk] ? (lang === 'ja' ? tk : tk.replace('_', '-')) : tk))));
         info.append(h('h3', {}, lang === 'ja' ? s.ja : s.en), h('p', {}, lang === 'ja' ? s.en : s.ja));
         extra.append(gloss, h('div', { class: 'mouth-tip' }, '👄 ' + t('mouthIt', { w: lang === 'ja' ? s.ja : s.en })));
-        // highlight gloss tokens as the teacher signs them
-        playSentence(s.toks, gloss);
-        // the human voice says the signed words (what you mouth), caption shows the full sentence
-        sayWords(s.toks.map((tk) => (tk.startsWith('#') ? tk.slice(1) : (LEXICON[tk]?.mouth || tk))).join(' '), { caption: lang === 'ja' ? s.ja : s.en, captionHold: 2500 });
+        sentenceFlow(my, s, gloss);
       }
     }
-    nextB.textContent = i === steps.length - 1 ? '✓ ' + t('done') : t('next') + ' ▶';
+    clearCountdown();
     if (!replay) sfx.click();
-  }
-
-  let sentToken = 0;
-  async function playSentence(toks, gloss) {
-    const my = ++sentToken;
-    for (let k = 0; k < toks.length; k++) {
-      if (my !== sentToken) return;
-      [...gloss.children].forEach((g, j) => g.classList.toggle('on', j === k));
-      const ok = await avatar.play([toks[k]]);
-      if (!ok) return;
-    }
-    [...gloss.children].forEach((g) => g.classList.remove('on'));
   }
 
   function next() {
     if (idx < steps.length - 1) { show(idx + 1); return; }
     // lesson finished
-    practiceToken++; cam.cancel();
+    stepTok++; clearCountdown(); cam.cancel();
     const first = !store.lang().lessons[n]?.done;
     store.completeLesson(n);
     sfx.fanfare(3);
-    say('lesson_complete', t('lessonComplete'));
+    narrate(t('lessonComplete'));
+    const autoBox = h('div', { class: 'auto-box' });
+    const quizNext = n === 10 || n === 20;
+    const nextLesson = !quizNext && n < 20 && lessonUnlocked(n + 1);
     split.replaceWith(h('div', { class: 'result' },
       h('div', { class: 'stars-big' }, h('span', { class: 'star on' }, '★'), h('span', { class: 'star on' }, '★'), h('span', { class: 'star on' }, '★')),
       h('h2', {}, t('lessonComplete')),
       h('p', { style: { color: 'var(--ink2)', fontSize: '20px' } }, ls.title[J]),
       h('div', { style: { display: 'flex', gap: '14px' } },
         btn('↻ ' + t('retry'), () => go('lesson', { n }), 'ghost'),
-        n === 10 || n === 20 ? btn('★ ' + (n === 10 ? t('quizMid') : t('quizFinal')), () => go('quiz', { id: n === 10 ? 'mid' : 'final' }), 'yellow')
-          : n < 20 && lessonUnlocked(n + 1) ? btn(t('lessonN', { n: n + 1 }) + ' ▶', () => go('lesson', { n: n + 1 }), 'green') : null,
-        btn(t('lessons'), () => go('lessons'), 'cyan'))));
-    if (first && (n === 10 || n === 20)) { sfx.unlock(); toast('★ ' + t('quizUnlocked')); }
+        quizNext ? btn('★ ' + (n === 10 ? t('quizMid') : t('quizFinal')), () => go('quiz', { id: n === 10 ? 'mid' : 'final' }), 'yellow')
+          : nextLesson ? btn(t('lessonN', { n: n + 1 }) + ' ▶', () => go('lesson', { n: n + 1 }), 'green') : null,
+        btn(t('lessons'), () => go('lessons'), 'cyan')),
+      autoBox));
+    if (first && quizNext) { sfx.unlock(); toast('★ ' + t('quizUnlocked')); }
+    if (auto() && (quizNext || nextLesson)) {
+      cancelAuto = autoContinue(autoBox, () => (quizNext ? go('quiz', { id: n === 10 ? 'mid' : 'final' }) : go('lesson', { n: n + 1 })), 8);
+    }
   }
 
   setTimeout(() => show(0, true), 60);
   return {
     el, usesCamera: true,
-    destroy() { practiceToken++; sentToken++; tm.stop(); cam.destroy(); avatar.destroy(); cancelAnimationFrame(handRaf); }
+    destroy() { stepTok++; clearTimeout(cdTimer); if (cancelAuto) cancelAuto(); tm.stop(); cam.destroy(); avatar.destroy(); viewer.destroy(); }
   };
 }

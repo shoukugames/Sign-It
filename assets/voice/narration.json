@@ -1,0 +1,426 @@
+{
+ "voice": "Piper en_US-ljspeech-high (neural, offline; trained on the public-domain LJ Speech dataset)",
+ "engine": "https://github.com/rhasspy/piper",
+ "lines": [
+  {
+   "key": "N_dc598be1",
+   "text": "Let's teach the camera about your hand. The camera works offline and is 100% private."
+  },
+  {
+   "key": "N_b5e9fd85",
+   "text": "Which hand do you sign with?"
+  },
+  {
+   "key": "N_5b88912b",
+   "text": "Show your open hand, palm facing the camera, fingers spread."
+  },
+  {
+   "key": "N_30776858",
+   "text": "Now make a fist, thumb in front."
+  },
+  {
+   "key": "N_3b7a096e",
+   "text": "Your hand is calibrated and ready to play!"
+  },
+  {
+   "key": "N_5fede479",
+   "text": "Calibration complete!"
+  },
+  {
+   "key": "N_367a010d",
+   "text": "Move your hand a little closer"
+  },
+  {
+   "key": "N_860078bb",
+   "text": "Move your hand a little farther away"
+  },
+  {
+   "key": "N_241e7de9",
+   "text": "Find a brighter spot so the camera can see your hand"
+  },
+  {
+   "key": "N_83f33923",
+   "text": "Lesson complete!"
+  },
+  {
+   "key": "N_a6a9319f",
+   "text": "Level complete!"
+  },
+  {
+   "key": "N_8d4d66a9",
+   "text": "Let's try that again!"
+  },
+  {
+   "key": "N_b3e788bd",
+   "text": "Perfect!"
+  },
+  {
+   "key": "N_6b3efd82",
+   "text": "Well done!"
+  },
+  {
+   "key": "N_4d751c48",
+   "text": "Passed!"
+  },
+  {
+   "key": "N_07807770",
+   "text": "Not passed yet"
+  },
+  {
+   "key": "N_eb5de810",
+   "text": "Correct!"
+  },
+  {
+   "key": "N_8452c367",
+   "text": "Not quite. Let's keep going!"
+  },
+  {
+   "key": "N_97c462c4",
+   "text": "Great job!"
+  },
+  {
+   "key": "N_307e08c1",
+   "text": "Try again!"
+  },
+  {
+   "key": "N_43a7c0d3",
+   "text": "That looks right. Hold it still!"
+  },
+  {
+   "key": "N_3ddba021",
+   "text": "Show your hand to the camera"
+  },
+  {
+   "key": "N_2e4b103d",
+   "text": "Copy the hand. Hold it still to score."
+  },
+  {
+   "key": "N_b4cd5784",
+   "text": "Answer the questions. You need 70% to pass."
+  },
+  {
+   "key": "N_7e8dc601",
+   "text": "Copy each handshape with your hand."
+  },
+  {
+   "key": "N_c8857a93",
+   "text": "Read the word and fingerspell it."
+  },
+  {
+   "key": "N_3b639055",
+   "text": "Listen to the word, then sign it."
+  },
+  {
+   "key": "N_daf62f2d",
+   "text": "Sign the whole sentence."
+  },
+  {
+   "key": "N_aca008f1",
+   "text": "Time is up"
+  },
+  {
+   "key": "N_7ee5c190",
+   "text": "Now fingerspell it with your hand!"
+  },
+  {
+   "key": "N_f8acbd07",
+   "text": "Watch Miko, then copy her."
+  },
+  {
+   "key": "N_3477a0f8",
+   "text": "Your camera is private"
+  },
+  {
+   "key": "N_312c1982",
+   "text": "The camera is NOT connected to the internet."
+  },
+  {
+   "key": "N_9c95244a",
+   "text": "What the camera sees stays on this computer. It is never recorded, saved or sent anywhere — 100% private."
+  },
+  {
+   "key": "N_56fc1549",
+   "text": "The camera turns off by itself when you stop playing."
+  },
+  {
+   "key": "N_ddcc8527",
+   "text": "A parent or guardian must allow the camera before it turns on. The picture never leaves this device and is not saved."
+  },
+  {
+   "key": "N_dfcfe9d1",
+   "text": "Tutorial complete!"
+  },
+  {
+   "key": "N_d7f9d7a3",
+   "text": "Which letter is this?"
+  },
+  {
+   "key": "N_dfc715b7",
+   "text": "What does this sign mean?"
+  },
+  {
+   "key": "N_5e096b75",
+   "text": "This area is for grown-ups."
+  },
+  {
+   "key": "N_5145cc9a",
+   "text": "Show the letter \"B\" to test."
+  },
+  {
+   "key": "N_a02a7f3b",
+   "text": "Show the letter \"A\" to test."
+  },
+  {
+   "key": "N_273b5b58",
+   "text": "Bend your thumb more."
+  },
+  {
+   "key": "N_257d41db",
+   "text": "Bend your index finger more."
+  },
+  {
+   "key": "N_e7674bbe",
+   "text": "Bend your middle finger more."
+  },
+  {
+   "key": "N_07b26b8f",
+   "text": "Bend your ring finger more."
+  },
+  {
+   "key": "N_54011e8f",
+   "text": "Bend your pinky more."
+  },
+  {
+   "key": "N_66e789eb",
+   "text": "Straighten your thumb."
+  },
+  {
+   "key": "N_d9263a6e",
+   "text": "Straighten your index finger."
+  },
+  {
+   "key": "N_03dfc241",
+   "text": "Straighten your middle finger."
+  },
+  {
+   "key": "N_c4f0f00e",
+   "text": "Straighten your ring finger."
+  },
+  {
+   "key": "N_5e66e67a",
+   "text": "Straighten your pinky."
+  },
+  {
+   "key": "N_72dc8b44",
+   "text": "Move your thumb out to the side."
+  },
+  {
+   "key": "N_02d21960",
+   "text": "Tuck your thumb in across your palm."
+  },
+  {
+   "key": "N_97da87d2",
+   "text": "Touch your thumb to your index finger."
+  },
+  {
+   "key": "N_03714cdd",
+   "text": "Touch your thumb to your middle finger."
+  },
+  {
+   "key": "N_7874e7b7",
+   "text": "Move your thumb away from your fingertips."
+  },
+  {
+   "key": "N_bbd50d4e",
+   "text": "Bring your thumb in front of your fingers."
+  },
+  {
+   "key": "N_3409bf78",
+   "text": "Pull your thumb back toward your palm."
+  },
+  {
+   "key": "N_d5c46066",
+   "text": "Move your thumb up."
+  },
+  {
+   "key": "N_742f40f5",
+   "text": "Move your thumb down."
+  },
+  {
+   "key": "N_640e7c5b",
+   "text": "Point your fingers up."
+  },
+  {
+   "key": "N_8d7f654b",
+   "text": "Point your fingers to the side."
+  },
+  {
+   "key": "N_12dc99b4",
+   "text": "Point your fingers down."
+  },
+  {
+   "key": "N_8390f371",
+   "text": "Point your fingers toward the camera."
+  },
+  {
+   "key": "N_56f88c8d",
+   "text": "Turn your palm to face the camera."
+  },
+  {
+   "key": "N_0f6e55be",
+   "text": "Turn the back of your hand to the camera."
+  },
+  {
+   "key": "N_aa2f37c1",
+   "text": "Turn your hand sideways."
+  },
+  {
+   "key": "N_13e8c73e",
+   "text": "Cross your index finger over your middle finger."
+  },
+  {
+   "key": "N_50d6971f",
+   "text": "Uncross your fingers."
+  },
+  {
+   "key": "N_a120ef15",
+   "text": "Spread your fingers apart."
+  },
+  {
+   "key": "N_54285085",
+   "text": "Keep your fingers together."
+  },
+  {
+   "key": "N_019dc084",
+   "text": "Sign language is a real language. People talk with their hands, face and body."
+  },
+  {
+   "key": "N_bffa307a",
+   "text": "Every sign has five parts: handshape, location, movement, palm direction, and face and mouth."
+  },
+  {
+   "key": "N_1ac95fa2",
+   "text": "Use your strong hand. Copy your teacher like a mirror, in the space in front of your body."
+  },
+  {
+   "key": "N_2e5f06a2",
+   "text": "Fingerspelling uses one handshape for each letter. Keep your hand steady and move smoothly."
+  },
+  {
+   "key": "N_0679a5f8",
+   "text": "Move your lips while you sign. Shape the word with your mouth at the same time as your hands."
+  },
+  {
+   "key": "N_335fa2f0",
+   "text": "Your face is part of sign language. Raise or squeeze your eyebrows for questions."
+  },
+  {
+   "key": "N_c3743247",
+   "text": "The camera works like a mirror and never goes on the internet. Hold each sign still to earn up to three stars."
+  },
+  {
+   "key": "N_424502a6",
+   "text": "Make a fist. Rest your thumb straight up along the side of your index finger."
+  },
+  {
+   "key": "N_dd84b8ac",
+   "text": "Hold four fingers straight up and together. Fold your thumb across your palm."
+  },
+  {
+   "key": "N_adb91d67",
+   "text": "Curve your fingers and thumb into the shape of the letter C."
+  },
+  {
+   "key": "N_afd6e5ef",
+   "text": "Point your index finger up. Touch your thumb to your other fingertips to make a circle."
+  },
+  {
+   "key": "N_827a5bcc",
+   "text": "Bend your fingertips down to touch your thumb, which is tucked under them."
+  },
+  {
+   "key": "N_31bb74e5",
+   "text": "Touch your index finger to your thumb to make a circle. Spread the other three fingers up."
+  },
+  {
+   "key": "N_2600e270",
+   "text": "Point your index finger sideways with your thumb above it, like a little beak."
+  },
+  {
+   "key": "N_ba929f58",
+   "text": "Point your index and middle fingers sideways, held together."
+  },
+  {
+   "key": "N_3f258358",
+   "text": "Make a fist and raise only your pinky finger."
+  },
+  {
+   "key": "N_fe4d411e",
+   "text": "Make the letter I, then draw a J in the air with your pinky (down, then curve)."
+  },
+  {
+   "key": "N_500c584f",
+   "text": "Point index finger up and middle finger forward. Put your thumb between them."
+  },
+  {
+   "key": "N_a5b40c51",
+   "text": "Point your index finger up and your thumb out to the side, making an L."
+  },
+  {
+   "key": "N_0ab61402",
+   "text": "Tuck your thumb under your first three fingers."
+  },
+  {
+   "key": "N_2e96ca64",
+   "text": "Tuck your thumb under your first two fingers."
+  },
+  {
+   "key": "N_773daea4",
+   "text": "Curve all your fingers to touch your thumb, making an O."
+  },
+  {
+   "key": "N_64afce8d",
+   "text": "Make a K and tip it so your fingers point down."
+  },
+  {
+   "key": "N_285b0c0d",
+   "text": "Make a G and point it down toward the floor."
+  },
+  {
+   "key": "N_336e3c9f",
+   "text": "Make a fist with your thumb wrapped across the front of your fingers."
+  },
+  {
+   "key": "N_43228b15",
+   "text": "Make a fist and poke your thumb up between your index and middle fingers."
+  },
+  {
+   "key": "N_898b34ee",
+   "text": "Hold your index and middle fingers up together."
+  },
+  {
+   "key": "N_6749f773",
+   "text": "Hold your index and middle fingers up and apart, like a V."
+  },
+  {
+   "key": "N_d5e6731b",
+   "text": "Hold three fingers up and apart. Your thumb holds down your pinky."
+  },
+  {
+   "key": "N_a6d3ef02",
+   "text": "Make a fist and raise your index finger in a hook."
+  },
+  {
+   "key": "N_753af1c3",
+   "text": "Stretch out your thumb and pinky. Fold the other fingers down."
+  },
+  {
+   "key": "N_079181a9",
+   "text": "Point your index finger and draw a Z in the air."
+  },
+  {
+   "key": "N_ff5e0bd1",
+   "text": "\"I love you\": thumb, index finger and pinky up."
+  }
+ ]
+}

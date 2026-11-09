@@ -123,6 +123,7 @@ export function parentsScreen() {
         h('div', { class: 'setting-row' }, h('div', { class: 't' }, '🗣 ' + t('pVoiceVol'), voiceInfo), range('voice')),
         h('div', { class: 'setting-row' }, h('div', { class: 't' }, '🤖 ' + t('pDeviceVoice')), sw('deviceVoice')),
         h('div', { class: 'setting-row' }, h('div', { class: 't' }, '✋ ' + t('pSkin')), skinSeg),
+        h('div', { class: 'setting-row' }, h('div', { class: 't' }, '⏭ ' + t('autoAdvance')), sw('autoAdvance')),
         h('div', { class: 'setting-row' }, h('div', { class: 't' }, '🔓 ' + t('pUnlockAll')), sw('unlockAll')),
         h('div', { class: 'setting-row' }, h('div', { class: 't' }, '🗑 ' + t('pResetProgress')), btn(t('pResetProgress'), async () => {
           if (await confirmDialog(t('pResetConfirm'), t('pResetProgress'))) { store.resetProgress(); toast('✔'); render(); }

@@ -220,3 +220,61 @@ export function techniqueScore(frames, startT, prevEnd, anchor) {
   }
   return steady * 0.5 + pace * 0.25 + place * 0.25;
 }
+
+// ---- coaching ------------------------------------------------------------------
+export const FINGER_KEYS = ['fThumb', 'fIndex', 'fMiddle', 'fRing', 'fPinky'];
+export const GUIDE_KEYS = ['gBend', 'gStraight', 'gThumbOut', 'gThumbIn', 'gThumbTouchIndex', 'gThumbTouchMiddle', 'gThumbApart',
+  'gThumbFront', 'gThumbBack', 'gThumbUp', 'gThumbDown', 'gPointUp', 'gPointSide', 'gPointDown', 'gPointCam',
+  'gPalmCam', 'gPalmAway', 'gPalmSide', 'gCross', 'gUncross', 'gSpread', 'gTogether'];
+
+/**
+ * Compare the player's hand (p) with the target (t) and return coaching tips,
+ * most important first: [{ key, f (finger i18n key or null), finger, cat, sev }]
+ * plus a status per category: { fingers, thumb, palm } (true = looks right).
+ */
+export function guide(p, t) {
+  const tips = [];
+  // 1) where the hand points and which way the palm faces
+  const tl = Math.hypot(t.px, t.py), pl = Math.hypot(p.px, p.py);
+  const dirKey = (x, y, l) => (l < 0.5 ? 'gPointCam' : y > 0.6 ? 'gPointUp' : y < -0.6 ? 'gPointDown' : 'gPointSide');
+  const tDir = dirKey(t.px, t.py, tl), pDir = dirKey(p.px, p.py, pl);
+  if (tDir !== pDir) {
+    const cos = tl > 0.3 && pl > 0.3 ? (t.px * p.px + t.py * p.py) / (tl * pl) : 0;
+    if (cos < 0.75) tips.push({ key: tDir, cat: 'palm', sev: 4 - cos });
+  }
+  if (t.nz > 0.5 && p.nz < 0.15) tips.push({ key: 'gPalmCam', cat: 'palm', sev: 3.6 + (0.5 - p.nz) });
+  else if (t.nz < -0.5 && p.nz > -0.15) tips.push({ key: 'gPalmAway', cat: 'palm', sev: 3.6 + (p.nz + 0.5) });
+  else if (Math.abs(t.nz) < 0.35 && Math.abs(p.nz) > 0.75) tips.push({ key: 'gPalmSide', cat: 'palm', sev: 3.3 });
+
+  // 2) each finger: bent vs. straight
+  const names = ['index', 'middle', 'ring', 'pinky'];
+  names.forEach((n, i) => {
+    const d = ((p[n + 'M'] - t[n + 'M']) + (p[n + 'P'] - t[n + 'P'])) / 2;
+    if (Math.abs(d) > 0.28) tips.push({ key: d > 0 ? 'gStraight' : 'gBend', f: FINGER_KEYS[i + 1], finger: n, cat: 'fingers', sev: Math.abs(d) / 0.28 });
+  });
+  const straight = (o, n) => o[n + 'M'] + o[n + 'P'] < 0.5;
+  if (straight(t, 'index') && straight(t, 'middle')) {
+    if (t.cross > 0.05 && p.cross < 0) tips.push({ key: 'gCross', finger: 'index', cat: 'fingers', sev: 1.4 });
+    else if (t.cross < 0.02 && p.cross > 0.06) tips.push({ key: 'gUncross', finger: 'index', cat: 'fingers', sev: 1.2 });
+    else if (t.spread > 0.6 && p.spread < 0.35) tips.push({ key: 'gSpread', finger: 'middle', cat: 'fingers', sev: 1.1 });
+    else if (t.spread < 0.25 && p.spread > 0.55) tips.push({ key: 'gTogether', finger: 'middle', cat: 'fingers', sev: 1.1 });
+  }
+
+  // 3) thumb (only the biggest issue)
+  const th = [];
+  // a 'touch' only matters when that finger is reaching for the thumb (O, F, D…), not in a fist
+  const reaching = (n) => t[n + 'M'] < 0.8 && t[n + 'P'] < 0.9;
+  if (t.ti < 0.28 && reaching('index') && p.ti > 0.42) th.push({ key: 'gThumbTouchIndex', sev: (p.ti - t.ti) / 0.18 });
+  else if (t.tm < 0.28 && reaching('middle') && p.tm > 0.42) th.push({ key: 'gThumbTouchMiddle', sev: (p.tm - t.tm) / 0.18 });
+  else if (t.ti > 0.5 && p.ti < 0.25) th.push({ key: 'gThumbApart', sev: 1.2 });
+  const dx = p.tx - t.tx, dz = p.tz - t.tz, dy = p.ty - t.ty;
+  if (Math.abs(dx) > 0.18) th.push({ key: dx > 0 ? 'gThumbOut' : 'gThumbIn', sev: Math.abs(dx) / 0.18 });
+  if (Math.abs(dz) > 0.2) th.push({ key: dz < 0 ? 'gThumbFront' : 'gThumbBack', sev: Math.abs(dz) / 0.2 * 0.9 });
+  if (Math.abs(dy) > 0.22) th.push({ key: dy > 0 ? 'gThumbDown' : 'gThumbUp', sev: Math.abs(dy) / 0.22 * 0.8 });
+  th.sort((a, b) => b.sev - a.sev);
+  if (th[0]) tips.push({ ...th[0], f: 'fThumb', finger: 'thumb', cat: 'thumb' });
+
+  tips.sort((a, b) => b.sev - a.sev);
+  const status = { fingers: !tips.some((x) => x.cat === 'fingers'), thumb: !tips.some((x) => x.cat === 'thumb'), palm: !tips.some((x) => x.cat === 'palm') };
+  return { tips, status };
+}

@@ -1,7 +1,7 @@
 // Sign It — camera panel + live sign matching (shared by lessons, quizzes,
 // calibration and levels).
 import * as camera from './camera.js';
-import { scoreSign, stars, similarity, template, motionScore, DIFFICULTY } from './recognizer.js';
+import { scoreSign, stars, template, motionScore, guide, DIFFICULTY } from './recognizer.js';
 import { getShape } from './signs.js';
 import { h, ring } from './ui.js';
 import { t } from './i18n.js';
@@ -103,6 +103,7 @@ export class CameraPanel {
     }
     if (!f.primary || !f.features) {
       this.fb.innerHTML = `<div>✋ ${t('showHand')}</div>`;
+      if (this.onGuide) this.onGuide({ tip: null, text: t('showHand'), noHand: true, status: null, stars: 0, tips: [] });
       j.ema *= 0.85; j.holdStart = null; j.released = true;
       this.setMeter(j.ema, '', j.diff);
       return;
@@ -119,18 +120,12 @@ export class CameraPanel {
     }
     const st = stars(s, j.diff, r.rank);
     this.setMeter(s, st ? '★'.repeat(st) : '', j.diff);
-    // coaching tip
-    let tip = '';
-    if (st < 2) {
-      if (r.confusedWith && r.raw < 0.75) tip = t('confusedWith', { x: r.confusedWith });
-      else {
-        const det = similarity(f.features, template(j.lang, j.key), true).parts;
-        const g = (ks) => ks.reduce((a, k) => a + Math.abs(det[k] || 0), 0) / ks.length;
-        const thumb = g(['tx', 'ty', 'tz', 'ti', 'tm']), fing = g(['indexM', 'indexP', 'middleM', 'middleP', 'ringM', 'ringP', 'pinkyM', 'pinkyP']), turn = g(['px', 'py', 'nz']);
-        tip = turn > fing && turn > thumb ? t('tipTurn') : thumb > fing ? t('tipThumb') : t('tipFingers');
-      }
-    }
-    this.fb.innerHTML = st >= 1 ? `<div>${t('holdStill')}</div>` : `<div>${''}</div>${tip ? `<span class="tip">💡 ${tip}</span>` : ''}`;
+    // coaching: tell the player exactly which finger / thumb / palm to fix
+    const g = guide(f.features, template(j.lang, j.key));
+    const top = st >= 2 ? null : g.tips[0] || null;
+    const tipText = top ? t(top.key, top.f ? { f: t(top.f) } : undefined) : (st >= 1 ? t('looksRight') : '');
+    this.fb.innerHTML = st >= 1 ? `<div>✅ ${t('holdStill')}</div>` : (tipText ? `<span class="tip">💡 ${tipText}</span>` : '');
+    if (this.onGuide) this.onGuide({ tip: top, text: tipText, status: g.status, stars: st, tips: g.tips });
 
     // motion letters track the fingertip path
     if (j.motion) {

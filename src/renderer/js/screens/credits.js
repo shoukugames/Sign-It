@@ -36,8 +36,8 @@ function voiceCard(ja) {
   const card = h('div', { class: 'credit-card' },
     h('h4', {}, ja ? '声の出演（人の録音）' : 'Voices (human recordings)'),
     h('p', {}, ja
-      ? '音声はすべて実際の人の録音です。ウィキメディア・コモンズ（Lingua Libre）のボランティアの皆さんに感謝します。無音部分のカットと音量の調整をしています。'
-      : 'Every spoken letter and word is a real human recording by volunteers on Wikimedia Commons (Lingua Libre). Thank you! Clips were trimmed and volume-matched.'),
+      ? '文字と単語の音声は実際の人の録音です（ウィキメディア・コモンズ／Lingua Libreのボランティアの皆さんに感謝します）。英語の説明ナレーションはオフラインのニューラル音声 Piper（LJ Speech、パブリックドメイン）で作成しました。日本語の説明は端末の日本語音声を使います。'
+      : 'Every spoken letter and word is a real human recording by volunteers on Wikimedia Commons (Lingua Libre). Thank you! Clips were trimmed and volume-matched. English instructions and narration use the offline Piper neural voice “LJSpeech” (trained on the public-domain LJ Speech dataset). Japanese instructions use your computer’s Japanese voice.'),
     list);
   fetch('../../assets/voice/attribution.json').then((r) => r.json()).then((a) => {
     const by = new Map();

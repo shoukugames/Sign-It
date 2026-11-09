@@ -48,6 +48,16 @@ const S = {
     licenseText: 'This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. It is distributed WITHOUT ANY WARRANTY.',
     thirdParty: 'Hand tracking: Google MediaPipe (Apache-2.0). Runtime: Electron (MIT).',
     privacyTitle: 'Your camera is private', privacyBody1: 'The camera is NOT connected to the internet.', privacyBody2: 'What the camera sees stays on this computer. It is never recorded, saved or sent anywhere — 100% private.', privacyBody3: 'The camera turns off by itself when you stop playing.', privacyOk: 'Got it — let\'s sign!', privacyTag: 'Offline · 100% private',
+    calibReady: 'Your hand is calibrated and ready to play!', finish: 'Finish', autoAdvance: 'Auto next', nextIn: 'Next in {s}…', stay: 'Stay here', continueIn: 'Continuing in {s}…',
+    rotateHint: 'Drag to turn the hand · Scroll to zoom · Double-click to reset', signTheWord: 'Now fingerspell it with your hand!', watchMiko: 'Watch Miko, then copy her.', notQuiteShort: 'Not quite. Let\'s keep going!', greatSign: 'Great job!', tryAgainSign: 'Try again!', looksRight: 'That looks right. Hold it still!',
+    fThumb: 'thumb', fIndex: 'index finger', fMiddle: 'middle finger', fRing: 'ring finger', fPinky: 'pinky',
+    gBend: 'Bend your {f} more.', gStraight: 'Straighten your {f}.', gThumbOut: 'Move your thumb out to the side.', gThumbIn: 'Tuck your thumb in across your palm.',
+    gThumbTouchIndex: 'Touch your thumb to your index finger.', gThumbTouchMiddle: 'Touch your thumb to your middle finger.', gThumbTouchPinky: 'Hold your pinky down with your thumb.', gThumbApart: 'Move your thumb away from your fingertips.',
+    gThumbFront: 'Bring your thumb in front of your fingers.', gThumbBack: 'Pull your thumb back toward your palm.', gThumbUp: 'Move your thumb up.', gThumbDown: 'Move your thumb down.',
+    gPointUp: 'Point your fingers up.', gPointSide: 'Point your fingers to the side.', gPointDown: 'Point your fingers down.', gPointCam: 'Point your fingers toward the camera.',
+    gPalmCam: 'Turn your palm to face the camera.', gPalmAway: 'Turn the back of your hand to the camera.', gPalmSide: 'Turn your hand sideways.',
+    gCross: 'Cross your index finger over your middle finger.', gUncross: 'Uncross your fingers.', gSpread: 'Spread your fingers apart.', gTogether: 'Keep your fingers together.',
+    guideTitle: 'Coach', fingersOk: 'Fingers', thumbOk: 'Thumb', palmOk: 'Palm',
     tutStart: 'Start the tutorial', tutDone: 'Tutorial complete!',
     mirrorNote: 'Mirror view: copy the hands like a mirror.',
     signingSpace: 'Signing space', none: '—',
@@ -99,6 +109,16 @@ const S = {
     licenseText: 'このプログラムはフリーソフトウェアです。フリーソフトウェア財団が発行するGNU一般公衆利用許諾書（バージョン3、またはそれ以降）の条件のもとで再配布・改変できます。無保証で配布されます。',
     thirdParty: '手のトラッキング：Google MediaPipe（Apache-2.0）／ランタイム：Electron（MIT）',
     privacyTitle: 'カメラはプライベートです', privacyBody1: 'カメラはインターネットにつながっていません。', privacyBody2: 'カメラにうつったものはこのコンピューターの中だけで使われ、録画・保存・送信はされません。100%プライベートです。', privacyBody3: 'あそぶのをやめると、カメラは自動でオフになります。', privacyOk: 'わかった！手話しよう！', privacyTag: 'オフライン・100%プライベート',
+    calibReady: '手のキャリブレーションが完了！あそぶ準備ができました！', finish: 'おわり', autoAdvance: 'オートでつぎへ', nextIn: 'あと{s}秒でつぎへ…', stay: 'ここにいる', continueIn: 'あと{s}秒でつづきます…',
+    rotateHint: 'ドラッグで回転・スクロールで拡大・ダブルクリックでもどす', signTheWord: 'こんどは指文字でやってみよう！', watchMiko: 'ミコを見て、まねしよう。', notQuiteShort: 'おしい！つぎにいこう！', greatSign: 'すごい！', tryAgainSign: 'もう一度！', looksRight: 'いいね！そのまま止めて！',
+    fThumb: '親指', fIndex: '人差し指', fMiddle: '中指', fRing: '薬指', fPinky: '小指',
+    gBend: '{f}をもっと曲げて。', gStraight: '{f}をのばして。', gThumbOut: '親指を横に出して。', gThumbIn: '親指を手のひらの方に折って。',
+    gThumbTouchIndex: '親指を人差し指につけて。', gThumbTouchMiddle: '親指を中指につけて。', gThumbTouchPinky: '親指で小指を押さえて。', gThumbApart: '親指を指先からはなして。',
+    gThumbFront: '親指を指の前に出して。', gThumbBack: '親指を手のひらの方にもどして。', gThumbUp: '親指を上に。', gThumbDown: '親指を下に。',
+    gPointUp: '指を上に向けて。', gPointSide: '指を横に向けて。', gPointDown: '指を下に向けて。', gPointCam: '指をカメラの方に向けて。',
+    gPalmCam: '手のひらをカメラに向けて。', gPalmAway: '手の甲をカメラに向けて。', gPalmSide: '手を横向きにして。',
+    gCross: '人差し指を中指の上に交差させて。', gUncross: '指の交差をといて。', gSpread: '指を広げて。', gTogether: '指をそろえて。',
+    guideTitle: 'コーチ', fingersOk: '指', thumbOk: '親指', palmOk: '手のひら',
     tutStart: 'チュートリアルを始める', tutDone: 'チュートリアル完了！',
     mirrorNote: 'ミラー表示：鏡のように手をまねしてね。',
     signingSpace: '手話の空間', none: '—',
@@ -108,6 +128,12 @@ const S = {
 
 export function t(key, vars) {
   const lang = store.settings.lang;
+  let s = (S[lang] && S[lang][key]) ?? S.en[key] ?? key;
+  if (vars) for (const k in vars) s = s.replaceAll('{' + k + '}', vars[k]);
+  return s;
+}
+/** Text in a specific language (used to build narration lists). */
+export function tIn(lang, key, vars) {
   let s = (S[lang] && S[lang][key]) ?? S.en[key] ?? key;
   if (vars) for (const k in vars) s = s.replaceAll('{' + k + '}', vars[k]);
   return s;

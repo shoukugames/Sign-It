@@ -3,12 +3,13 @@ import { h, btn } from '../ui.js';
 import { t } from '../i18n.js';
 import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say, sayLetter } from '../audio.js';
+import { sfx, narrate, sayLetter } from '../audio.js';
 import { lessons, QUIZZES, PASS_PCT } from '../curriculum.js';
 import { Avatar, LEXICON } from '../avatar.js';
 import { getShape } from '../signs.js';
 import { synthesize, drawHand, SKIN, VIEW34 } from '../handmodel.js';
 import { CameraPanel } from '../practice.js';
+import { HandViewer } from '../handviewer.js';
 import * as camera from '../camera.js';
 
 const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -69,12 +70,12 @@ export function quizScreen({ id }) {
   const el = h('div', { class: 'screen' },
     h('div', { class: 'topbar' }, btn('←', () => go('lessons'), 'ghost icon-btn'), h('h2', {}, id === 'mid' ? t('quizMid') : t('quizFinal'), counter)),
     split);
-  let avatar = null;
+  let avatar = null, qViewer = null;
 
   function answer(ok, correctLabel, elChoice) {
     if (locked) return;
     locked = true;
-    if (ok) { correct++; sfx.correct(); } else sfx.wrong();
+    if (ok) { correct++; sfx.correct(); narrate(t('correct')); } else { sfx.wrong(); narrate(t('notQuiteShort')); }
     store.recordSign(qs[i].answer, ok);
     if (elChoice) elChoice.classList.add(ok ? 'right' : 'wrong');
     [...choices.children].forEach((c) => { if (c.dataset.k === qs[i].answer) c.classList.add('right'); });
@@ -85,6 +86,7 @@ export function quizScreen({ id }) {
   async function render() {
     locked = false;
     if (avatar) { avatar.destroy(); avatar = null; }
+    if (qViewer) { qViewer.destroy(); qViewer = null; }
     cam.cancel();
     stage.innerHTML = ''; choices.innerHTML = '';
     if (i >= qs.length) return finish();
@@ -92,7 +94,11 @@ export function quizScreen({ id }) {
     const q = qs[i];
     if (q.type === 'whichLetter') {
       qTitle.textContent = lang === 'ja' ? t('qWhichKana') : t('qWhichLetter');
-      stage.append(h('div', { style: { display: 'grid', placeItems: 'center', flex: 1 } }, handCanvas(lang, q.answer, 230)));
+      const hc = h('canvas', { class: 'fill' });
+      stage.style.minHeight = '240px';
+      stage.append(hc);
+      qViewer = new HandViewer(hc, { scale: 0.7 });
+      qViewer.set(synthesize(getShape(lang, q.answer).pose));
       q.choices.forEach((k) => { const c = h('div', { class: 'choice', 'data-k': k, onclick: () => answer(k === q.answer, q.answer, c) }, k); choices.append(c); });
     } else if (q.type === 'whichHand') {
       qTitle.textContent = t('qWhichHand', { x: q.answer });
@@ -123,7 +129,7 @@ export function quizScreen({ id }) {
     store.recordQuiz(id, pct);
     const pass = pct >= PASS_PCT;
     sfx.fanfare(pass ? 3 : 0);
-    say(pass ? 'quiz_pass' : 'quiz_fail', pass ? t('passed') : t('notPassed'));
+    narrate(pass ? t('passed') : t('notPassed'));
     if (avatar) avatar.destroy();
     cam.destroy();
     split.replaceWith(h('div', { class: 'result' },
@@ -137,5 +143,5 @@ export function quizScreen({ id }) {
   }
 
   setTimeout(render, 60);
-  return { el, usesCamera: true, destroy() { tm.stop(); if (avatar) avatar.destroy(); cam.destroy(); } };
+  return { el, usesCamera: true, destroy() { tm.stop(); if (avatar) avatar.destroy(); if (qViewer) qViewer.destroy(); cam.destroy(); } };
 }

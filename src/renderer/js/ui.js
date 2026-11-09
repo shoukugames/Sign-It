@@ -1,5 +1,5 @@
 // Sign It — small DOM helpers, modals, toasts, stars.
-import { sfx } from './audio.js';
+import { sfx, narrate, narrateAll } from './audio.js';
 import { t } from './i18n.js';
 
 export function h(tag, attrs = {}, ...kids) {
@@ -76,6 +76,7 @@ export function parentGate({ title, text, consentText, allowLabel } = {}) {
       err,
       h('div', { class: 'row' }, btn(t('gateCancel'), () => done(false), 'ghost'), allow)
     );
+    if (text) narrate(text);
     setTimeout(() => input.focus(), 50);
   }));
 }
@@ -116,5 +117,29 @@ export function privacyNotice() {
       li('💻', t('privacyBody2')),
       li('⏻', t('privacyBody3')),
       h('div', { class: 'row' }, btn(t('privacyOk'), () => { close(); resolve(); }, 'green')));
+    narrateAll([t('privacyBody1'), t('privacyBody2'), t('privacyBody3')]);
   }));
+}
+
+/**
+ * Hands-free countdown: shows "Continuing in 8…" with a Stay button and calls
+ * `go` when it reaches zero. Returns a cancel function.
+ */
+export function autoContinue(box, go, secs = 8, label = 'continueIn') {
+  let left = secs, timer = 0;
+  const txt = h('span', {});
+  const ringC = h('canvas', { class: 'auto-ring' });
+  const stay = btn(t('stay'), () => cancel(), 'ghost small');
+  box.innerHTML = '';
+  box.append(ringC, txt, stay);
+  const tick = () => {
+    txt.textContent = t(label, { s: left });
+    ring(ringC, left / secs, '#5fe3a1', String(left));
+    if (left <= 0) { cancel(); go(); return; }
+    left--;
+    timer = setTimeout(tick, 1000);
+  };
+  const cancel = () => { clearTimeout(timer); box.innerHTML = ''; };
+  tick();
+  return cancel;
 }

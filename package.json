@@ -1,7 +1,7 @@
 {
   "name": "sign-it",
   "productName": "Sign It",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Sign It - learn American Sign Language (ASL) and Japanese Sign Language (JSL) with camera hand tracking. Recommended for all ages.",
   "main": "src/main/main.js",
   "homepage": "https://shoukugames.org/",

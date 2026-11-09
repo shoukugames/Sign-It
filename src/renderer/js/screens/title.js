@@ -7,7 +7,7 @@ import { sfx } from '../audio.js';
 import { LOGO_SVG } from '../logo.js';
 import { lessons } from '../curriculum.js';
 
-export const VERSION = '0.1.1';
+export const VERSION = '0.1.3';
 
 export function titleScreen() {
   const S = store.settings;

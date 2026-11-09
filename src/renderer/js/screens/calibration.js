@@ -5,7 +5,7 @@ import { h, btn, toast } from '../ui.js';
 import { t } from '../i18n.js';
 import { store } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say } from '../audio.js';
+import { sfx, narrate } from '../audio.js';
 import { synthesize, drawHand, SKIN, VIEW34, F } from '../handmodel.js';
 import { extract, meanFeatures } from '../recognizer.js';
 import { CameraPanel } from '../practice.js';
@@ -55,7 +55,7 @@ export function calibrationScreen() {
     actions.append(
       btn('🫲 ' + t('left'), () => { store.set('dominant', 'left'); stepCapture('open'); }, 'cyan'),
       btn('🫱 ' + t('right'), () => { store.set('dominant', 'right'); stepCapture('open'); }, 'green'));
-    say('calib_intro', t('calibIntro'));
+    narrate(t('calibIntro'));
   }
 
   function stepCapture(which) {
@@ -63,7 +63,7 @@ export function calibrationScreen() {
     illPose = which === 'open' ? OPEN : FIST;
     const text = which === 'open' ? t('calibOpen') : t('calibFist');
     setInfo(which === 'open' ? '① ' + t('calibOpen').split(/[,、]/)[0] : '② ' + t('calibFist').split(/[,、]/)[0], text);
-    say(`calib_${which}`, text);
+    narrate(text);
     actions.innerHTML = '';
     actions.append(btn(t('back'), () => stepIntro(), 'ghost small'));
     const frames = [];
@@ -128,13 +128,21 @@ export function calibrationScreen() {
 
   function stepDone() {
     illPose = OPEN;
-    setInfo('🎉 ' + t('calibDone'), t('calibSaved'));
+    info.innerHTML = '';
+    info.append(h('div', { class: 'calib-ready' },
+      h('div', { class: 'calib-check' }, '✓'),
+      h('h3', {}, t('calibReady')),
+      h('p', {}, t('calibSaved'))));
     status.textContent = '';
     sfx.fanfare(3);
-    say('calib_done', t('calibDone'));
+    narrate(t('calibReady'));
     actions.innerHTML = '';
-    actions.append(btn('↻ ' + t('recalibrate'), () => stepIntro(), 'ghost'), h('div', { style: { flex: 1 } }), btn(t('levels') + ' ▶', () => go('levels'), 'pink'), btn(t('done'), () => go('title'), 'green'));
-    toast('✔ ' + t('calibSaved'));
+    actions.append(
+      btn('↻ ' + t('recalibrate'), () => stepIntro(), 'ghost small'),
+      h('div', { style: { flex: 1 } }),
+      btn(t('levels') + ' ▶', () => go('levels'), 'pink'),
+      btn('🏁 ' + t('finish'), () => go('title'), 'green', { 'data-finish': '1' }));
+    toast('✔ ' + t('calibReady'));
   }
 
   setTimeout(stepIntro, 60);

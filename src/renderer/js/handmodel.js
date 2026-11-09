@@ -133,6 +133,10 @@ export function drawHand(ctx, pts, opts = {}) {
     const c = lerp(pts[0], pts[9], 0.5);
     pts = pts.map((p) => add(rotXYZ(sub(p, c), opts.view), c));
   }
+  if (opts.orbit) { // free 3D orbit (mouse): turn around the vertical axis, then tilt
+    const c = lerp(pts[0], pts[9], 0.5);
+    pts = pts.map((p) => add(rotAxis(rotAxis(sub(p, c), [0, 1, 0], opts.orbit.yaw), [1, 0, 0], opts.orbit.pitch), c));
+  }
   let P = pts.map((p) => {
     const persp = 1 / (1 - p[2] * 0.35);
     return { x: (mirror ? -p[0] : p[0]) * scale * persp, y: -p[1] * scale * persp, z: p[2] };
@@ -237,7 +241,8 @@ function drawPalm(ctx, P, s, skin, palmFacing) {
 
 function drawBone(ctx, a, b, w, skin, hi) {
   ctx.lineWidth = w + Math.max(1.5, w * 0.12);
-  ctx.strokeStyle = hi ? '#ffd166' : skin.line;
+  if (hi) { ctx.save(); ctx.shadowColor = '#ffd166'; ctx.shadowBlur = w * 0.9; ctx.lineWidth = w * 1.45; ctx.strokeStyle = 'rgba(255,209,102,0.85)'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore(); }
+  ctx.strokeStyle = hi ? '#ffb020' : skin.line;
   ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
   const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
   g.addColorStop(0, skin.shade);

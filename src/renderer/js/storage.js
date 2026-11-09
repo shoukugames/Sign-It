@@ -20,7 +20,8 @@ const DEFAULTS = {
     deviceVoice: false,  // synthetic voices are OFF unless a parent opts in
     skin: 'light',
     dominant: 'right',
-    unlockAll: false
+    unlockAll: false,
+    autoAdvance: true   // hands-free: move on automatically after a correct sign
   },
   calibration: null,
   tutorialSeen: false,

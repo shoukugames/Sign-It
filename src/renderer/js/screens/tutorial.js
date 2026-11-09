@@ -3,7 +3,7 @@ import { h, btn } from '../ui.js';
 import { t } from '../i18n.js';
 import { store, timer } from '../storage.js';
 import { go } from '../nav.js';
-import { sfx, say } from '../audio.js';
+import { sfx, narrate } from '../audio.js';
 import { Avatar } from '../avatar.js';
 
 export const SLIDES = {
@@ -65,12 +65,12 @@ export function tutorialScreen() {
     nextB.textContent = i === slides.length - 1 ? '✓ ' + t('done') : t('next') + ' ▶';
     avatar.zoom = s.zoom || 1;
     loopDemo(s.demo);
-    say(`tut_${lang}_${i + 1}`, s.say);
+    narrate(s.say);
   }
   function finish() {
     store.markTutorial();
     sfx.fanfare(3);
-    say('tut_done', t('tutDone'));
+    narrate(t('tutDone'));
     go('title');
   }
   setTimeout(() => show(0), 60);
