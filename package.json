@@ -25,7 +25,8 @@
     "dist:win": "npm run prebuild && electron-builder --win nsis portable",
     "dist": "npm run prebuild && electron-builder --linux deb --win nsis portable",
     "voice:fetch": "node tools/fetch-voices.mjs && node tools/voice-manifest.js",
-    "test:real": "node tools/eval-real.mjs"
+    "test:real": "node tools/eval-real.mjs",
+    "build:web": "node tools/build-web.js"
   },
   "devDependencies": {
     "electron": "^33.2.0",

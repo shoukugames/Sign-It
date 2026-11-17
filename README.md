@@ -280,6 +280,21 @@ Every spoken line is also shown as a caption.
   (**For Parents → Settings**). It is off by default because it may sound
   synthetic.
 
+## Play in the browser
+
+Sign It also runs in a web browser, on computers, phones and tablets, with nothing to
+install: <https://shoukugames.org/play/sign-it/> (test page). The browser asks before using
+the camera; hand recognition runs on your device and no image leaves it. Progress is saved
+in the browser.
+
+```bash
+npm install          # also fetches src/renderer/vendor
+npm run build:web    # -> build/web/: upload the folder as-is
+```
+
+`tools/build-web.js` copies `src/renderer/` and `assets/` side by side, and adds
+`web-fit.js`, which scales the layout to fit phone screens.
+
 ## Running from source
 
 Requirements: Node.js 20+ and npm. Python 3 with Playwright is needed only to
