@@ -1,0 +1,14 @@
+{
+ "_note": "Replace identity_name, publisher and publisher_display_name with the values from Partner Center (Product management -> Product identity) before uploading to the Microsoft Store.",
+ "identity_name": "ShoukuGames.SignIt",
+ "publisher": "CN=ShoukuGamesPlaceholder",
+ "publisher_display_name": "Shouku Games",
+ "display_name": "Sign It",
+ "description": "Learn American and Japanese Sign Language with your camera! Copy the 3D hand, get coached finger by finger, and earn 1 to 3 stars for every sign.",
+ "file_name": "SignIt",
+ "exe_name": "SignIt.exe",
+ "alias": "shouku-sign-it.exe",
+ "device_capabilities": [
+  "webcam"
+ ]
+}
